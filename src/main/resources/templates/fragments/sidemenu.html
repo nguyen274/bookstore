@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+>
+
+
+<th:block th:fragment="menu">
+	<div class="col-md-3 left_col">
+		<div class="left_col scroll-view">
+			<div class="navbar nav_title" style="border: 0;">
+				<a href="#" class="site_title"><i class="fa fa-paw"></i>
+					<span>Spark LMS</span></a>
+			</div>
+
+			<div class="clearfix"></div>
+
+			<br />
+
+			<!-- sidebar menu -->
+			<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+				<div class="menu_section">
+					<ul class="nav side-menu">
+						<li><a><i class="fa fa-home"></i>Bảng Điều Khiển<span
+								class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+								<li><a href="/home">Tổng Quan</a></li>
+								<li><a href="/book-price-stats">Thông Kê Theo Sách</a></li>
+								<li><a href="/turnover-of-month">Thống kê Theo Tháng</a></li>
+							</ul></li>
+
+						<li sec:authorize="hasAuthority('ADMIN')"><a><i class="fa fa-user"></i> Quản Lý Nhân Viên <span
+								class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+								<li><a href="/staff/add">Thêm Mới</a></li>
+								<li><a href="/staff/list">Danh Sách</a></li>
+							</ul></li>
+
+						<li><a><i class="fa fa-book"></i> Bán Sách <span
+								class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+								<li><a href="/issue/new">Lên Phiếu Mua</a></li>
+								<li><a href="/issue/list">Danh Sách</a></li>
+							</ul></li> 
+						<li><a><i class="fa fa-sitemap"></i> Thẻ Khách Hàng <span
+								class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+								<!-- <li><a href="/library-card/add">Thẻ Cho Sinh Viên</a></li> -->
+								<li><a href="/library-card/add-customer">Thẻ Cho Khách Hàng</a></li>
+								<li><a href="/library-card/list">Danh Sách</a></li>
+							</ul></li>
+
+						<li><a><i class="fa fa-book"></i> Sách <span
+								class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+								<li><a href="/book/add">Thêm Mới</a></li>
+								<li><a href="/book/list">Danh Sách</a></li>
+							</ul></li>
+						<li><a><i class="fa fa-book"></i> Thể Loại Sách <span
+								class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+								<li><a href="/book-category/add">Thêm Mới</a></li>
+								<li><a href="/book-category/list">Danh Sách</a></li>
+							</ul></li>
+							
+						<li><a><i class="fa fa-sitemap"></i> Kho Sách <span
+								class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+								<li><a href="/book-store/add">Thêm Mới</a></li>
+								<li><a href="/book-store/list">Danh Sách</a></li>
+							</ul></li>
+							
+						<li><a><i class="fa fa-sitemap"></i> Nhà Xuất Bản <span
+								class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+								<li><a href="/producer/add">Thêm Mới</a></li>
+								<li><a href="/producer/list">Danh Sách</a></li>
+							</ul></li>							
+							
+						<li><a><i class="fa fa-sitemap"></i> Tác Giả <span
+								class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+								<li><a href="/author/add">Thêm Mới</a></li>
+								<li><a href="/author/list">Danh Sách</a></li>
+							</ul></li>
+						<li><a><i class="fa fa-user"></i> Khách Hàng <span
+								class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+								<li><a href="/customer/add">Thêm Mới</a></li>
+								<li><a href="/customer/list">Danh Sách</a></li>
+							</ul></li>
+						<!-- <li><a><i class="fa fa-user"></i> Sinh viên <span
+								class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+								<li><a href="/student/add">Thêm Mới</a></li>
+								<li><a href="/student/list">Danh Sách</a></li>
+							</ul></li>
+						<li><a><i class="fa fa-book"></i> Lớp <span
+								class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+								<li><a href="/grade/add">Thêm Mới</a></li>
+								<li><a href="/grade/list">Danh Sách</a></li>
+							</ul></li>
+						<li><a><i class="fa fa-graduation-cap"></i> Khóa <span
+								class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+								<li><a href="/course/add">Thêm Mới</a></li>
+								<li><a href="/course/list">Danh Sách</a></li>
+							</ul></li>
+						<li><a><i class="fa fa-graduation-cap"></i> Ngành Học <span
+								class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+								<li><a href="/major/add">Thêm Mới</a></li>
+								<li><a href="/major/list">Danh Sách</a></li>
+							</ul></li> -->
+					</ul>
+
+				</div>
+
+			</div>
+			<!-- /sidebar menu -->
+		</div>
+	</div>
+</th:block>
+
+</html>

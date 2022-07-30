@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- Meta, title, CSS, favicons, etc. -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spark LMS - Book Form</title>
+
+<th:block th:replace="fragments/styles :: common"></th:block>
+
+</head>
+<body class="nav-md">
+	<div class="container body">
+		<div class="main_container">
+
+			<th:block th:replace="fragments/sidemenu :: menu"></th:block>
+			<th:block th:replace="fragments/topmenu :: menu"></th:block>
+
+			<!-- page content -->
+			<div class="right_col" role="main">
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<div class="x_panel">
+							<div class="x_title">
+								<h2 th:if="${grade.id==null}">Thêm Thông Tin Lớp</h2>
+								<h2 th:if="${grade.id!=null}">Sửa Thông Tin Lớp</h2>
+								<div class="clearfix"></div>
+							</div>
+							<div class="x_content">
+								<div class="alert alert-success alert-dismissible fade in"
+									role="alert" th:if="${successMsg}">
+									<button type="button" class="close" data-dismiss="alert"
+										aria-label="Close">
+										<span aria-hidden="true">×</span>
+									</button>
+									<span th:text="*{successMsg}"></span>
+								</div>
+								<br />
+
+								<form th:action="@{/grade/save}" method="post"
+									th:object="${grade}" class="form-horizontal form-label-left">
+
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12">Mã
+											lớp <span class="required">*</span>
+										</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<input type="text" th:field="*{gradeCode}"
+												class="form-control col-md-7 col-xs-12">
+										</div>
+										<div class="col-md-3 col-sm-3 col-xs-12 mt-5">
+											<span th:if="${#fields.hasErrors('gradeCode')}"
+												th:errors="*{gradeCode}"></span>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12">Tên
+											Lớp <span class="required">*</span>
+										</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<input type="text" th:field="*{gradeName}"
+												class="form-control col-md-7 col-xs-12">
+										</div>
+										<div class="col-md-3 col-sm-3 col-xs-12 mt-5">
+											<span th:if="${#fields.hasErrors('gradeName')}"
+												th:errors="*{gradeName}"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12">Ngành Học<span class="required">*</span></label>
+										<div class="col-md-3 col-sm-3 col-xs-12">
+											<select th:field="*{major}" class="form-control" >
+												<option th:each="m : ${major}" th:value="${m.id}" th:text="${m.majorName}" ></option>
+											</select>
+										</div>
+										<div class="col-md-3 col-sm-3 col-xs-12 mt-5">
+											<span th:if="${#fields.hasErrors('major')}" th:errors="*{major}"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12">Niên Khóa<span class="required">*</span></label>
+										<div class="col-md-3 col-sm-3 col-xs-12">
+											<select th:field="*{course}" class="form-control" >
+												<option th:each="c : ${course}" th:value="${c.id}" th:text="${c.courseName}" ></option>
+											</select>
+										</div>
+										<div class="col-md-3 col-sm-3 col-xs-12 mt-5">
+											<span th:if="${#fields.hasErrors('course')}" th:errors="*{course}"></span>
+										</div>
+									</div>
+
+
+									<input type="hidden" th:if="${id!=null}" th:field="*{id}" />
+									<!--                                <input type="hidden" th:field="*{status}" />-->
+									<input type="hidden" name="createDate" id="createDate" />
+
+									<div class="ln_solid"></div>
+									<div class="form-group">
+										<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+											<th:block th:if="${id==null}">
+												<button class="btn btn-primary" type="reset" id="resetBtn">Reset</button>
+											</th:block>
+											<th:block th:if="${id!=null}">
+												<button class="btn btn-primary" type="button"
+													id="gotoListBtn">Go to list page</button>
+											</th:block>
+											<button type="submit" class="btn btn-success">Save</button>
+										</div>
+									</div>
+
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /page content -->
+
+			<th:block th:replace="fragments/footer :: footer"></th:block>
+
+		</div>
+	</div>
+
+	<th:block th:replace="fragments/scripts :: common"></th:block>
+	<script th:src="@{/custom/js/grade/form.js}"></script>
+</body>
+</html>
