@@ -2,16 +2,17 @@ $(document).ready(function() {
 
 	$('#addBook').on('click', function() {
 		var id = $('#booksSel').val();
+		var amount = $("#amount").val();
 		var title = $("#booksSel option:selected").text();
 		var tag = $("#booksSel option:selected").attr("data-tag");
 		var price = $("#booksSel option:selected").attr("data-price");
 		var depositPrice = $("#booksSel option:selected").attr("data-deposit-price");
 
-		if( id && !bookAlreadyExist(id) && title && tag && price && depositPrice) {
-			var book = { id: id, title: title, tag: tag, price: price , depositPrice: depositPrice};
+		if( id && !bookAlreadyExist(id) && amount && title && tag && price && depositPrice) {
+			var book = { id: id,  amount: amount, title: title, tag: tag, price: price, depositPrice: depositPrice};
 			booksToIssue.push(book);
 			$('#booksSel').val('');
-			initBooksInTable();
+			initBooksInTable()
 		}
 	});
 	

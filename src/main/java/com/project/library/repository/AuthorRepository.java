@@ -10,4 +10,5 @@ import com.project.library.model.Author;
 @Repository
 public interface AuthorRepository extends JpaRepository<Author, Long>{
 	public List<Author> findAllByOrderByAuthorNameAsc();
+
 }

@@ -32,17 +32,14 @@ public class Customer implements Serializable {
     @Column(name = "gender")
     private String gender;
 
-    @NotNull(message = "*Please enter birth date")
+    /*@NotNull(message = "*Please enter birth date")
     @Column(name = "date_of_birth")
-    private Date dateOfBirth;
+    private Date dateOfBirth;*/
 
     @Column(name = "joining_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date joiningDate;
 
-    @NotBlank(message = "Please enter contact")
-    @Column(name = "contact")
-    private String contact;
 
     @Column(name = "email", unique = true)
     @Email
@@ -95,13 +92,13 @@ public class Customer implements Serializable {
         this.gender = gender;
     }
 
-    public Date getDateOfBirth() {
+    /*public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
-    }
+    }*/
 
     public Date getJoiningDate() {
         return joiningDate;
@@ -109,14 +106,6 @@ public class Customer implements Serializable {
 
     public void setJoiningDate(Date joiningDate) {
         this.joiningDate = joiningDate;
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact;
     }
 
     public String getEmail() {

@@ -55,8 +55,19 @@ public class CallCard {
 
     @Column(name = "full_name")
     private String fullName;
+    
+    @Column(name = "amount")
+	private Integer amount;
 
-    public String getFullName() {
+    public Integer getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Integer amount) {
+		this.amount = amount;
+	}
+
+	public String getFullName() {
         return fullName;
     }
 

@@ -30,8 +30,9 @@ public class Author implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "authorId", nullable = false) 
 	private Long id;
-	
-    @NotBlank(message = "Please enter author code")
+
+
+	@NotBlank(message = "Please enter author code")
     @Size(min = 3, max = 15)
     @Column(name = "authorCode", length = 10, nullable = false)
 	private String authorCode;

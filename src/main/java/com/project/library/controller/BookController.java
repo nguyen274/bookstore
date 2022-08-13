@@ -1,18 +1,19 @@
 package com.project.library.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.project.library.common.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.library.model.Author;
@@ -25,6 +26,7 @@ import com.project.library.service.BookCategoryService;
 import com.project.library.service.BookService;
 import com.project.library.service.BookStoreService;
 import com.project.library.service.ProducerService;
+
 
 @Controller
 @RequestMapping(value = "/book")
@@ -92,7 +94,28 @@ public class BookController {
 		}
 	}
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String save(@Valid Book book, final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
+	public String save(@Valid Book book, final BindingResult bindingResult, final RedirectAttributes redirectAttributes,
+	@RequestParam("image") MultipartFile multipartFile ) throws IOException {
+		// note
+//		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+//		book.setImage(fileName);
+//		Book saveBook = bookService.saveBook(book);
+//		String uploadDir = "book-images/" + saveBook.getId();
+//		FileUploadUtil.saveFile(uploadDir,fileName,multipartFile);
+		if(!multipartFile.isEmpty()){
+			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+			book.setImage(fileName);
+			Book saveBook = bookService.saveBook(book);
+
+			String uploadDir = "book-photos/" +saveBook.getId();
+			FileUploadUtil.cleanDir(uploadDir);
+			FileUploadUtil.saveFile(uploadDir,fileName,multipartFile);
+		} else {
+			if(book.getImage().isEmpty()) book.setImage(null);
+			bookService.saveBook(book);
+		}
+
+		///
     	System.out.println(book);
     	System.out.println(bindingResult);
     	if( bindingResult.hasErrors()){
@@ -101,8 +124,8 @@ public class BookController {
         }
         if(book.getId() == null){
             bookService.addNew(book);
-            redirectAttributes.addFlashAttribute("successMsg", "'" + book.getBookName() + "' đã được thêm tác giả mới.");
-            return "redirect:/book/add";
+            redirectAttributes.addFlashAttribute("successMsg", "'" + book.getBookName() + "' đã được thêm sách mới.");
+            return "redirect:/book/list";
         } else {
             Book updateBook = bookService.saveBook(book);
             redirectAttributes.addFlashAttribute("successMsg", "Thay đổi '" + book.getBookName() + "' thành công. ");

@@ -36,15 +36,17 @@
                         </div>
 
                         <table id="datatable"
-                               class="table table-striped table-bordered">
+                               class="table table-striped table-bordered" >
                             <thead>
                             <tr>
                                 <th style="width: 20px;">ID</th>
                                 <th style="width: 50px;">ISBN</th>
+                                <th >Ảnh</th>
                                 <th style="width: 100px;">Tên Sách</th>
                                 <th style="width: 50px;">Tác Giả</th>
                                 <th style="width: 100px;">Nhà Sản Xuất</th>
                                 <th style="width: 30px;">Giá Sách (VNĐ)</th>
+                                <th style="width: 30px;">Số Lượng</th>
                                 <!-- <th style="width: 30px;">Giá Mượn (VNĐ)</th>
                                 <th style="width: 30px;">Giá Đặt Cọc (VNĐ)</th> -->
                                 <th style="width: 30px;">Actions</th>
@@ -54,18 +56,24 @@
                             <tr th:each="b : ${books}">
                                 <td th:text="${b.id}"></td>
                                 <td th:text="${b.bookCode}"></td>
+                                <td align="center">
+                                    <span th:if="${b.image == null}"></span>
+                                    <img th:if="${b.image != null}" th:src="@{${b.photosImagePath}}" style="width: 100px;"
+                                    />
+                                </td>
                                 <td th:text="${b.bookName}"></td>
                                 <td th:text="${b.author.authorName}"></td>
                                 <td th:text="${b.producer.producerName}"></td>
                                 <td th:text="${#numbers.formatDecimal(b.price,0, 'COMMA', 0, 'POINT')}">VNĐ</td>
                                 <!-- <td th:text="${#numbers.formatDecimal(b.borrowPrice,0, 'COMMA', 0, 'POINT')}">VNĐ</td>
                                 <td th:text="${#numbers.formatDecimal(b.depositPrice,0, 'COMMA', 0, 'POINT')}">VNĐ</td> -->
+                                <td th:text="${b.amount}"></td>
                                 <td>
                                     <a th:href="@{'/book/edit/' + ${b.id}}" ><i class="fa fa-edit" style="margin-right: 20px"></i></a>
-                                    <a data-toggle="modal" data-target=".remove-book-modal" onclick="removeBookDialog(this);"
+                                    <!--<a data-toggle="modal" data-target=".remove-book-modal" onclick="removeBookDialog(this);"
                                        th:data-book-id="${b.id}" th:data-book-name="${b.bookName}" style="cursor: pointer;">
                                         <i class="fa fa-remove"></i>
-                                    </a>
+                                    </a>-->
                                 </td>
                             </tr>
                             </tbody>
@@ -76,7 +84,7 @@
         </div>
         <!-- /page content -->
 
-        <div class="modal fade remove-book-modal" tabindex="-1"
+        <!--<div class="modal fade remove-book-modal" tabindex="-1"
              role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
@@ -99,7 +107,7 @@
 
                 </div>
             </div>
-        </div>
+        </div>-->
 
         <th:block th:replace="fragments/footer :: footer"></th:block>
 

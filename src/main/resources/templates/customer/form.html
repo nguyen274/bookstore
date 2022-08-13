@@ -67,7 +67,7 @@
                   </div>
                 </div>
 
-                <div class="form-group">
+                <!--<div class="form-group">
                   <label class="control-label col-md-3 col-sm-3 col-xs-12">Ngày Sinh <span class="required">*</span></label>
                   <div class="col-md-2 col-sm-2 col-xs-12">
 
@@ -79,19 +79,12 @@
                     <span id="dobErr"></span>
                     <span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
                   </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-12" >Liên Hệ (Địa Chỉ) # </label>
-                  <div class="col-md-4 col-sm-4 col-xs-12">
-                    <input type="text" th:field="*{contact}" class="form-control col-md-7 col-xs-12">
-                  </div>
-                </div>
+                </div>-->
 
                 <div class="form-group">
                   <label class="control-label col-md-3 col-sm-3 col-xs-12" >Email </label>
                   <div class="col-md-4 col-sm-4 col-xs-12">
-                    <input type="text" th:field="*{email}" class="form-control col-md-7 col-xs-12">
+                    <input type="email" th:field="*{email}" class="form-control col-md-7 col-xs-12">
                   </div>
                 </div>
 
