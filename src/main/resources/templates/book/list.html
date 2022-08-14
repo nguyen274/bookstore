@@ -43,6 +43,7 @@
                                 <th style="width: 50px;">ISBN</th>
                                 <th >Ảnh</th>
                                 <th style="width: 100px;">Tên Sách</th>
+                                <th style="width: 100px;">Thể Loại</th>
                                 <th style="width: 50px;">Tác Giả</th>
                                 <th style="width: 100px;">Nhà Sản Xuất</th>
                                 <th style="width: 30px;">Giá Sách (VNĐ)</th>
@@ -62,6 +63,7 @@
                                     />
                                 </td>
                                 <td th:text="${b.bookName}"></td>
+                                <td th:text="${b.bookCategory.bookCategoryName}"></td>
                                 <td th:text="${b.author.authorName}"></td>
                                 <td th:text="${b.producer.producerName}"></td>
                                 <td th:text="${#numbers.formatDecimal(b.price,0, 'COMMA', 0, 'POINT')}">VNĐ</td>

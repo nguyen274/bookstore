@@ -32,6 +32,28 @@ public class CallCardDetail implements Serializable {
     @Column(name = "return_date")
     private Date returnDate;
 
+    @Column(name = "amount")
+    private Integer amount;
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    @Column(name = "total")
+    private Integer total;
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
+
     public Date getReturnDate() {
         return returnDate;
     }

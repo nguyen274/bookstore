@@ -56,7 +56,7 @@ public class CallCard {
     @Column(name = "full_name")
     private String fullName;
     
-    @Column(name = "amount")
+    /*@Column(name = "amount")
 	private Integer amount;
 
     public Integer getAmount() {
@@ -65,7 +65,7 @@ public class CallCard {
 
 	public void setAmount(Integer amount) {
 		this.amount = amount;
-	}
+	}*/
 
 	public String getFullName() {
         return fullName;

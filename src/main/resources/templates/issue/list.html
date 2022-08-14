@@ -35,6 +35,7 @@
                             <tr>
                                 <th>Họ Và Tên</th>
                                 <th>Sách Bán</th>
+                                <th>Số Lượng</th>
                                 <th style="width: 100px;">Ngày Bán</th>
                                 <th style="width: 110px;">Thành Tiền (VNĐ)</th>
                                 <!-- <th style="width: 110px;">Tiền Cọc (VNĐ)</th> -->
@@ -51,6 +52,13 @@
                                     <ul th:id="${'issue_' + i.id}">
                                         <th:block th:each="ib : ${i.callCardDetails}">
                                             <li th:if="${ib.returned==0}" th:text="${ib.book.bookName}"  th:data-id="${ib.id}"></li>
+                                        </th:block>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul th:id="${'issue_' + i.id}">
+                                        <th:block th:each="ib : ${i.callCardDetails}">
+                                            <li th:if="${ib.returned==0}" th:text="${ib.amount}"  th:data-id="${ib.id}"></li>
                                         </th:block>
                                     </ul>
                                 </td>

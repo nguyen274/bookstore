@@ -30,13 +30,13 @@ public class IssueRestController {
     @Autowired
     private CallCardDetailService callCardDetailService;
 
-    @RequestMapping(value="/", method = RequestMethod.GET)
-    public String index(){
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String index() {
         return "book/form";
     }
 
-    @RequestMapping(value="/save-fines-price", method = RequestMethod.GET)
-    public String saveFinesPrice(@RequestParam Map<String, String> payload){
+    @RequestMapping(value = "/save-fines-price", method = RequestMethod.GET)
+    public String saveFinesPrice(@RequestParam Map<String, String> payload) {
         Long id = Long.parseLong(payload.get("id"));
         Float total = Float.parseFloat(payload.get("total"));
 
@@ -47,22 +47,22 @@ public class IssueRestController {
         return "success";
     }
 
-    @RequestMapping(value="/save", method = RequestMethod.GET)
-    public String save(@RequestParam Map<String, String> payload){
-        String menberIdStr = (String)payload.get("member");
+    @RequestMapping(value = "/save", method = RequestMethod.GET)
+    public String save(@RequestParam Map<String, String> payload) {
+        String menberIdStr = (String) payload.get("member");
         Float total = Float.parseFloat(payload.get("total"));
         Float totalDepositPrice = Float.parseFloat(payload.get("totalDepositPrice"));
         String[] bookIdsStr = payload.get("books").toString().split(",");
+        String[] amountByBook = payload.get("amount").toString().split(",");
 
         Long memberId = null;
         List<Long> bookIds = new ArrayList<Long>();
-
-        try{
+        try {
             memberId = Long.parseLong(menberIdStr);
-            for (int k=0 ; k<bookIdsStr.length ; k++){
+            for (int k = 0; k < bookIdsStr.length; k++) {
                 bookIds.add(Long.parseLong(bookIdsStr[k]));
             }
-        }catch (NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             ex.printStackTrace();
             return "Invalid number format";
         }
@@ -73,7 +73,6 @@ public class IssueRestController {
 
         LibraryCard libraryCard = libraryCardService.get(memberId);
         List<Book> books = bookService.get(bookIds);
-
         CallCard callCard = new CallCard();
         callCard.setTotalDepositPrice(totalDepositPrice);
         callCard.setTotal(total);
@@ -81,12 +80,17 @@ public class IssueRestController {
         callCard.setLibraryCard(libraryCard);
         callCard = callCardService.addNew(callCard);
 
-        for(int k = 0 ; k<books.size() ; k++){
+        CallCardDetail ccd = new CallCardDetail();
+
+
+        for (int k = 0; k < books.size(); k++) {
             Book book = books.get(k);
             book.setStatus(Constants.BOOK_STATUS_ISSUED);
             book = bookService.saveBook(book);
-
+            book.setAmount(Integer.valueOf(amountByBook[k]));
             CallCardDetail callCardDetail = new CallCardDetail();
+            // amount ccd
+            callCardDetail.setAmount(Integer.valueOf(amountByBook[k]));
             callCardDetail.setCallCard(callCard);
             callCardDetail.setBook(book);
             callCardDetailService.addNew(callCardDetail);
@@ -94,17 +98,18 @@ public class IssueRestController {
 
         return "success";
     }
+
     @RequestMapping(value = "/{id}/return/all", method = RequestMethod.GET)
-    public String returnAll(@PathVariable(name = "id") Long id){
+    public String returnAll(@PathVariable(name = "id") Long id) {
         CallCard callCard = callCardService.get(id);
-        if ( callCard != null) {
+        if (callCard != null) {
             List<CallCardDetail> callCardDetails = callCard.getCallCardDetails();
 
 
-            for( int k=0 ; k<callCardDetails.size() ; k++){
+            for (int k = 0; k < callCardDetails.size(); k++) {
                 CallCardDetail ib = callCardDetails.get(k);
-                long millis=System.currentTimeMillis();
-                java.sql.Date date=new java.sql.Date(millis);
+                long millis = System.currentTimeMillis();
+                java.sql.Date date = new java.sql.Date(millis);
                 ib.setReturnDate(date);
                 ib.setReturned(Constants.BOOK_RETURNED);
                 callCardDetailService.save(ib);
@@ -123,19 +128,19 @@ public class IssueRestController {
 
     }
 
-    @RequestMapping(value="/{id}/pay", method = RequestMethod.GET)
-    public String returnSelected(@RequestParam Map<String , String> payload, @PathVariable(name = "id") Long id){
+    @RequestMapping(value = "/{id}/pay", method = RequestMethod.GET)
+    public String returnSelected(@RequestParam Map<String, String> payload, @PathVariable(name = "id") Long id) {
         CallCard callCard = callCardService.get(id);
         String[] issueBookIds = payload.get("ids").split(",");
         LocalDate return_date = LocalDate.now();
 
-        if( callCard != null){
+        if (callCard != null) {
             List<CallCardDetail> callCardDetails = callCard.getCallCardDetails();
-            for (int k=0 ; k<callCardDetails.size() ; k++){
+            for (int k = 0; k < callCardDetails.size(); k++) {
                 CallCardDetail ib = callCardDetails.get(k);
-                if (Arrays.asList(issueBookIds).contains(ib.getId().toString())){
-                    long millis1=System.currentTimeMillis();
-                    java.sql.Date date=new java.sql.Date(millis1);
+                if (Arrays.asList(issueBookIds).contains(ib.getId().toString())) {
+                    long millis1 = System.currentTimeMillis();
+                    java.sql.Date date = new java.sql.Date(millis1);
                     ib.setReturnDate(date);
                     ib.setReturned(Constants.BOOK_RETURNED);
                     callCardDetailService.save(ib);
