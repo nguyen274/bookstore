@@ -43,7 +43,7 @@
                 <th style="width: 100px;">Tên Khách Hàng</th>
                 <th style="width: 100px;">Email</th>
                 <th style="width: 100px;">Giới Tính</th>
-                <!--<th style="width: 50px;">Tuổi</th>-->
+                <th style="width: 50px;">Tuổi</th>
                 <th style="width: 90px;">Ngày Tham Gia</th>
                 <th style="width: 50px;">Actions</th>
               </tr>
@@ -54,7 +54,7 @@
                 <td th:text="${m.customerName}"></td>
                 <td th:text="${m.email}"></td>
                 <td th:text="${m.gender}"></td>
-                <!--<td th:text="${#dates.year(#dates.createToday()) - #dates.year(m.dateOfBirth)}"></td>-->
+                <td th:text="${#dates.year(#dates.createToday()) - #dates.year(m.dateOfBirth)}"></td>
                 <td th:text="${#dates.format(m.joiningDate, 'dd-MMM-yyyy')}"></td>
                 <td>
                   <a th:href="@{'/customer/edit/' + ${m.id}}"><i class="fa fa-edit" style="margin-right: 20px"></i></a>
