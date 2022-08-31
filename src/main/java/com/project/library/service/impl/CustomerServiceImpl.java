@@ -46,5 +46,14 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findAllByOrderByCustomerNameAsc();
     }
 
+    public Integer checkUniquePhone(String customerCode){
+        Integer customer = customerRepository.findPhone(customerCode);
+        return customer;
+    }
+
+    public Integer checkUniqueEmail(String email){
+        Integer customer = customerRepository.findEmail(email);
+        return customer;
+    }
 
 }

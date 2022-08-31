@@ -48,5 +48,10 @@ public class LibraryCardServiceImpl implements LibraryCardService {
         return libraryCardRepository.findById(id).get();
     }
 
+    public Integer checkUniqueCardNumber(String cardNumber){
+        Integer libraryCard = libraryCardRepository.findCardNumber(cardNumber);
+        return libraryCard;
+    }
+
 }
 

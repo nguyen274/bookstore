@@ -35,13 +35,13 @@ public class LibraryCardController {
     @Autowired
     private CustomerService customerService;
 
-    @ModelAttribute(name = "students")
-    public List<Student> getAllBySort(){
-        return studentService.getAllBySort();
-    }
+//    @ModelAttribute(name = "students")
+//    public List<Student> getAllBySort(){
+//        return studentService.getAllBySort();
+//    }
 
-    @ModelAttribute(name = "customers")
-    public List<Customer> getSort(){return customerService.getAllBySort(); }
+//    @ModelAttribute(name = "customers")
+//    public List<Customer> getSort(){return customerService.getAllBySort(); }
 
     @ModelAttribute(name = "cardTypes")
     public List<String> cardTypes(){
@@ -56,12 +56,16 @@ public class LibraryCardController {
     }
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addCardPage(Model model){
+        List<Student> students = studentService.getAllBySort();
+        model.addAttribute("students", students);
         model.addAttribute("libraryCard", new LibraryCard());
         return "/library-card/form";
     }
 
     @RequestMapping(value = "/add-customer", method = RequestMethod.GET)
     public String addCardCustomerPage(Model model){
+        List<Customer> customers = customerService.getAllBySort();
+        model.addAttribute("customers", customers);
         model.addAttribute("libraryCard1", new LibraryCard());
         return "/library-card/form-customer";
     }
@@ -80,6 +84,10 @@ public class LibraryCardController {
     public String saveCard(@Valid LibraryCard libraryCard, BindingResult bindingResult, final RedirectAttributes redirectAttributes){
         if( bindingResult.hasErrors() ) {
             return "/library-card/form";
+        }
+        if (libraryCardService.checkUniqueCardNumber(libraryCard.getCardNumber()) > 0){
+            redirectAttributes.addFlashAttribute("successMsgs", "Số Thẻ '" + libraryCard.getCardNumber() + "' đã được đăng kí.");
+            return "redirect:/library-card/add";
         }
 
         if( libraryCard.getId() == null ) {
@@ -102,6 +110,11 @@ public class LibraryCardController {
     public String saveCardCustomer(@Valid LibraryCard libraryCard, BindingResult bindingResult, final RedirectAttributes redirectAttributes){
         if( bindingResult.hasErrors() ) {
             return "/library-card/form-customer";
+        }
+
+        if (libraryCardService.checkUniqueCardNumber(libraryCard.getCardNumber()) > 0){
+            redirectAttributes.addFlashAttribute("successMsgs", "Số Thẻ '" + libraryCard.getCardNumber() + "' đã được đăng kí.");
+            return "redirect:/library-card/add-customer";
         }
 
         if( libraryCard.getId() == null ) {

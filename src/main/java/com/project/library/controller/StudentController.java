@@ -30,13 +30,13 @@ public class StudentController {
 	@Autowired
     private StudentService studentService;
 
-    @Autowired
+    /*@Autowired
     private GradeService gradeService;
 
     @ModelAttribute(name = "grade")
     private List<Grade> gradeList(){
         return gradeService.getAllBySort();
-    }
+    }*/
 
 
     @RequestMapping(value = {"/", "/list"}, method = RequestMethod.GET)
@@ -61,7 +61,7 @@ public class StudentController {
         Optional<Student> studentEdit = studentService.findStudentById(studentId);
         if(studentEdit.isPresent()) {
             studentEdit.ifPresent(student -> model.addAttribute("student", student));
-            return "/student/form";
+            return "/student/edit";
         } else {
             return "redirect:/student/add";
         }
@@ -73,6 +73,11 @@ public class StudentController {
 
             return  "/student/form";
         }
+        if (studentService.checkUniquePhone(student.getStudentPhone()) > 0){
+            redirectAttributes.addFlashAttribute("successMsgs", "Số Điện Thoại '" + student.getStudentPhone() + "' đã được đăng kí.");
+            return "redirect:/student/add";
+//            bindingResult.rejectValue("studentPhone","error.phone");
+        }
         System.out.println("hello:" + student.toString());
         if(student.getId() == null){
             student.setStatus(Constants.STUDENT_NOT_STATUS);
@@ -82,6 +87,32 @@ public class StudentController {
         } else {
             student.setStatus(Constants.STUDENT_NOT_STATUS);
         	Student updateStudent = studentService.saveStudent(student);
+            redirectAttributes.addFlashAttribute("successMsg", "Thay đổi '" + student.getStudentName() + "' thành công. ");
+            return "redirect:/student/edit/"+updateStudent.getId();
+        }
+
+    }
+
+    @RequestMapping(value = "/save-edit", method = RequestMethod.POST)
+    public String saveEdit(@Valid Student student, final BindingResult bindingResult, final RedirectAttributes redirectAttributes){
+        if( bindingResult.hasErrors()){
+            System.out.println("here");
+
+            return  "/student/form";
+        }
+        if (studentService.checkUniquePhone(student.getStudentPhone()) > 1){
+            redirectAttributes.addFlashAttribute("successMsgs", "Số Điện Thoại '" + student.getStudentPhone() + "' đã được đăng kí.");
+            return "redirect:/student/add";
+        }
+        System.out.println("hello:" + student.toString());
+        if(student.getId() == null){
+            student.setStatus(Constants.STUDENT_NOT_STATUS);
+            studentService.addNew(student);
+            redirectAttributes.addFlashAttribute("successMsg", "'" + student.getStudentName() + "' đã được thêm sv mới.");
+            return "redirect:/student/add";
+        } else {
+            student.setStatus(Constants.STUDENT_NOT_STATUS);
+            Student updateStudent = studentService.saveStudent(student);
             redirectAttributes.addFlashAttribute("successMsg", "Thay đổi '" + student.getStudentName() + "' thành công. ");
             return "redirect:/student/edit/"+updateStudent.getId();
         }

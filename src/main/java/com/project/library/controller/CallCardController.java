@@ -1,11 +1,11 @@
 package com.project.library.controller;
 
 import com.project.library.common.Constants;
-import com.project.library.model.BookCategory;
-import com.project.library.model.CallCard;
-import com.project.library.model.Course;
+import com.project.library.model.*;
 import com.project.library.service.BookCategoryService;
+import com.project.library.service.BookService;
 import com.project.library.service.CallCardService;
+import com.project.library.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,17 +25,20 @@ import java.util.Optional;
 public class CallCardController {
     @Autowired
     private CallCardService callCardService;
+    private BookService bookService;
+    /*@Autowired
+    private StaffService staffService;*/
 
     @Autowired
     private BookCategoryService bookCategoryService;
 
     @ModelAttribute(name = "cardTypes")
-    public List<String> cardTypes(){
+    public List<String> cardTypes() {
         return Constants.MEMBER_TYPES;
     }
 
     @ModelAttribute("categories")
-    public List<BookCategory> getCategories(){
+    public List<BookCategory> getCategories() {
         return bookCategoryService.getAllBySort();
     }
 
@@ -47,13 +50,17 @@ public class CallCardController {
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newIssuePage(Model model) {
+        /*List<Staff> staff = staffService.getAllBySort();
+        model.addAttribute("staff", staff);*/
         return "/issue/form";
     }
+// get book by bookCode
+
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String editIssuePage(@PathVariable Long id, Model model){
+    public String editIssuePage(@PathVariable Long id, Model model) {
         Optional<CallCard> courseEdit = callCardService.findById(id);
-        if(courseEdit.isPresent()) {
+        if (courseEdit.isPresent()) {
             courseEdit.ifPresent(course -> model.addAttribute("issue", course));
             return "/issue/edit";
         } else {
@@ -62,16 +69,15 @@ public class CallCardController {
     }
 
     @RequestMapping(value = "/print/{id}", method = RequestMethod.GET)
-    public String printIssuePage(@PathVariable Long id, Model model){
+    public String printIssuePage(@PathVariable Long id, Model model) {
         Optional<CallCard> courseEdit = callCardService.findById(id);
-        if(courseEdit.isPresent()) {
+        if (courseEdit.isPresent()) {
             courseEdit.ifPresent(course -> model.addAttribute("issue", course));
             return "/issue/print";
         } else {
             return "redirect:/issue/list";
         }
     }
-
 
 
 }

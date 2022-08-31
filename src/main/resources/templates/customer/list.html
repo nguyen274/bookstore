@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <!-- Meta, title, CSS, favicons, etc. -->
@@ -39,8 +39,9 @@
                    class="table table-striped table-bordered">
               <thead>
               <tr>
-                <th style="width: 100px;">Mã Khách Hàng</th>
+
                 <th style="width: 100px;">Tên Khách Hàng</th>
+                <th style="width: 100px;">Số Điện Thoại</th>
                 <th style="width: 100px;">Email</th>
                 <th style="width: 100px;">Giới Tính</th>
                 <th style="width: 50px;">Tuổi</th>
@@ -50,19 +51,21 @@
               </thead>
               <tbody>
               <tr th:each="m : ${customers}">
-                <td th:text="${m.customerCode }"></td>
+
                 <td th:text="${m.customerName}"></td>
+                <td th:text="${m.customerCode }"></td>
                 <td th:text="${m.email}"></td>
                 <td th:text="${m.gender}"></td>
                 <td th:text="${#dates.year(#dates.createToday()) - #dates.year(m.dateOfBirth)}"></td>
                 <td th:text="${#dates.format(m.joiningDate, 'dd-MMM-yyyy')}"></td>
                 <td>
-                  <a th:href="@{'/customer/edit/' + ${m.id}}"><i class="fa fa-edit" style="margin-right: 20px"></i></a>
-                  <a data-toggle="modal" data-target=".remove-member-modal" onclick="removeMemberDialog(this);"
+                  <a sec:authorize="hasAnyAuthority('ADMIN','EDITOR')" th:href="@{'/customer/edit/' + ${m.id}}"><i class="fa fa-edit" style="margin-right: 20px"></i></a>
+                  <!--<a data-toggle="modal" data-target=".remove-member-modal" onclick="removeMemberDialog(this);"
                      th:data-member-id="${m.id}" th:data-member-name="${m.customerName}"
                      style="cursor: pointer;">
                     <i class="fa fa-remove"></i>
-                  </a></td>
+                  </a>-->
+                </td>
               </tr>
               </tbody>
             </table>
@@ -72,7 +75,7 @@
     </div>
     <!-- /page content -->
 
-    <div class="modal fade remove-member-modal" tabindex="-1"
+    <!--<div class="modal fade remove-member-modal" tabindex="-1"
          role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -95,7 +98,7 @@
 
         </div>
       </div>
-    </div>
+    </div>-->
 
     <th:block th:replace="fragments/footer :: footer"></th:block>
 

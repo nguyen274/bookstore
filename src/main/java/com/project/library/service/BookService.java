@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.project.library.model.BookCategory;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.project.library.model.Book;
@@ -11,7 +12,7 @@ import com.project.library.model.Book;
 @Repository
 public interface BookService {
     List<Book> getAllBook();
-    
+
     void addNew(Book book);
 
     Book saveBook(Book book);
@@ -27,4 +28,7 @@ public interface BookService {
     List<Book> get(List<Long> bookIds);
 
     List<Object[]> totalBookOfCategory();
+
+    Integer checkUniqueISBN(@Param("bookCode")String isbnInput);
+    Book getBookByBookCode(String bookCode);
 }

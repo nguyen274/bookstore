@@ -1,5 +1,6 @@
 package com.project.library.controller;
 
+import com.project.library.model.Book;
 import com.project.library.service.BookService;
 import com.project.library.service.CallCardDetailService;
 import com.project.library.service.CallCardService;
@@ -15,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -61,6 +63,14 @@ public class LoginController {
 
         model.addAttribute("bookStats", this.callCardDetailService.totalBookPrice(startDate, endDate));
         return "/stats/book-stats";
+    }
+
+    @RequestMapping(value = { "/least-book"}, method = RequestMethod.GET)
+    public String showBookPage(Model model) {
+        List<Book> books = bookService.getAllBook();
+        model.addAttribute("books", books);
+
+        return "/stats/least-book";
     }
 
 }

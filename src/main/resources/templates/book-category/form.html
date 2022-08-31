@@ -34,6 +34,12 @@
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                                 <span th:text="*{successMsg}"></span>
                             </div>
+                            <div class="alert alert-success alert-dismissible fade in" role="alert"
+                                 th:if="${successMsgs}" style="background-color:red;border-color:red">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                        aria-hidden="true">×</span></button>
+                                <span th:text="*{successMsgs}"></span>
+                            </div>
                             <br/>
 
                             <form th:action="@{/book-category/save}" method="post" th:object="${bookCategory}" class="form-horizontal form-label-left">

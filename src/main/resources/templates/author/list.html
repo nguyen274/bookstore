@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://thymeleaf.org">
+      xmlns:th="http://thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -55,11 +55,11 @@
                                 <td th:text="${a.website}"></td>
                                 <td th:text="${a.note}"></td>
                                 <td>
-                                    <a th:href="@{'/author/edit/' + ${a.id}}" ><i class="fa fa-edit" style="margin-right: 20px"></i></a>
-                                    <a data-toggle="modal" data-target=".remove-author-modal" onclick="removeAuthorDialog(this);"
+                                    <a sec:authorize="hasAnyAuthority('ADMIN','EDITOR')" th:href="@{'/author/edit/' + ${a.id}}" ><i class="fa fa-edit" style="margin-right: 20px"></i></a>
+                                    <!--<a data-toggle="modal" data-target=".remove-author-modal" onclick="removeAuthorDialog(this);"
                                        th:data-author-id="${a.id}" th:data-author-name="${a.authorName}" style="cursor: pointer;">
                                         <i class="fa fa-remove"></i>
-                                    </a>
+                                    </a>-->
                                 </td>
                             </tr>
                             </tbody>
@@ -70,7 +70,7 @@
         </div>
         <!-- /page content -->
 
-        <div class="modal fade remove-author-modal" tabindex="-1"
+        <!--<div class="modal fade remove-author-modal" tabindex="-1"
              role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
@@ -93,7 +93,7 @@
 
                 </div>
             </div>
-        </div>
+        </div>-->
 
         <th:block th:replace="fragments/footer :: footer"></th:block>
 

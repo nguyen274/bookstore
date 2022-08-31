@@ -56,7 +56,15 @@ public class ProducerController {
         if( bindingResult.hasErrors()){
             return  "/producer/form";
         }
-        
+		if (producerService.checkUniqueCode(producer.getProducerCode()) > 0){
+			redirectAttributes.addFlashAttribute("successMsgs", "Mã NXB '" + producer.getProducerCode() + "' đã được đăng kí.");
+			return "redirect:/producer/add";
+		}
+		if (producerService.checkUniqueName(producer.getProducerName()) > 0){
+			redirectAttributes.addFlashAttribute("successMsgs1", "Tên NXB '" + producer.getProducerCode() + "' đã được đăng kí.");
+			return "redirect:/producer/add";
+		}
+
         if(producer.getId() == null){
             producerService.addNew(producer);
             redirectAttributes.addFlashAttribute("successMsg", "'" + producer.getProducerName() + "' đã được thêm nhà xuất bản mới.");

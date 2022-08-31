@@ -31,7 +31,7 @@ public class Book implements Serializable {
 
 	@NotNull(message = "*Please enter book code")
 	@NotBlank(message = "*Please enter book code")
-	@Column(name = "book_code", length = 50, nullable = false)
+	@Column(name = "book_code", length = 50, nullable = false, unique = true)
 	private String bookCode;
 
 	@NotNull(message = "*Please enter book name")
@@ -39,13 +39,13 @@ public class Book implements Serializable {
 	@Column(name = "book_name", length = 100, nullable = false)
 	private String bookName;
 
-	@Column(name = "borrow_price", nullable = false)
+	@Column(name = "borrow_price")
 	private Float borrowPrice;
 
 	@Column(name = "price", nullable = false)
 	private Float price;
 
-	@Column(name = "depositPrice", nullable = false)
+	@Column(name = "depositPrice")
 	private Float depositPrice;
 
 	@JsonIgnore
@@ -69,7 +69,6 @@ public class Book implements Serializable {
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "book_store_id")
-	@NotNull(message = "*Please select book store")
 	private BookStore bookStore;
 
 	@Range(min = 1000, max = 2022)

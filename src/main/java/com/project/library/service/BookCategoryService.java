@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.project.library.model.BookCategory;
+import org.springframework.data.repository.query.Param;
 
 public interface BookCategoryService {
     List<BookCategory> getAllBookCategory();
@@ -19,4 +20,6 @@ public interface BookCategoryService {
     List<BookCategory> getAllBySort();
 
     BookCategory get(Long id);
+
+    Integer checkUniqueCode(@Param("bookCategoryCode")String codeInput);
 }

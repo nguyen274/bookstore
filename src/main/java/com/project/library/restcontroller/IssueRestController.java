@@ -30,6 +30,11 @@ public class IssueRestController {
     @Autowired
     private CallCardDetailService callCardDetailService;
 
+    @GetMapping("/getBook/{bookCode}")
+    public Book getBookByIdBook(@PathVariable String bookCode) {
+        return bookService.getBookByBookCode(bookCode);
+    }
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index() {
         return "book/form";
@@ -67,6 +72,7 @@ public class IssueRestController {
             return "Invalid number format";
         }
         Calendar cal = Calendar.getInstance();
+        System.out.println(cal);
         cal.add(Calendar.MONTH, 30); // thêm 4 tháng
 
         Date date = cal.getTime();
@@ -79,20 +85,29 @@ public class IssueRestController {
         callCard.setExpectedReturnDate(date);
         callCard.setLibraryCard(libraryCard);
         callCard = callCardService.addNew(callCard);
-
+        if (menberIdStr == "MEMBER_STUDENT") {
+            callCard.setTotal(total - total * 5 / 100);
+        }
         CallCardDetail ccd = new CallCardDetail();
 
 
         for (int k = 0; k < books.size(); k++) {
-            Book book = books.get(k);
-            book.setStatus(Constants.BOOK_STATUS_ISSUED);
-            book = bookService.saveBook(book);
-            book.setAmount(Integer.valueOf(amountByBook[k]));
+
+//            Book book = bookService.findBookById(bookIds.get(k)).orElseThrow(() -> new IllegalArgumentException("Empty"));
+//            book.setAmount(book.getAmount() - Integer.parseInt(amountByBook[k]));
+//            System.out.println(book.getAmount() - Integer.parseInt(amountByBook[k]));
+//            bookService.saveBook(book);
+
+            Book bookId = books.get(k);
+            bookId.setAmount(bookId.getAmount() - Integer.parseInt(amountByBook[k]));
+            bookId.setStatus(Constants.BOOK_STATUS_ISSUED);
+            bookId = bookService.saveBook(bookId);
+//            bookId.setAmount(Integer.valueOf(amountByBook[k]));
             CallCardDetail callCardDetail = new CallCardDetail();
             // amount ccd
             callCardDetail.setAmount(Integer.valueOf(amountByBook[k]));
             callCardDetail.setCallCard(callCard);
-            callCardDetail.setBook(book);
+            callCardDetail.setBook(bookId);
             callCardDetailService.addNew(callCardDetail);
         }
 

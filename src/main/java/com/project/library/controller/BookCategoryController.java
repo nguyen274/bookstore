@@ -59,6 +59,11 @@ public class BookCategoryController {
         if( bindingResult.hasErrors()){
             return  "/book-category/form";
         }
+
+        if (bookCategoryService.checkUniqueCode(bookCategory.getBookCategoryCode()) > 0){
+            redirectAttributes.addFlashAttribute("successMsgs", "Mã Thể Loại Sách '" + bookCategory.getBookCategoryCode() + "' đã được đăng kí.");
+            return "redirect:/book-category/add";
+        }
         
         if(bookCategory.getId() == null){
             bookCategoryService.addNew(bookCategory);

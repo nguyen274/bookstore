@@ -31,7 +31,7 @@
                     <h2>Thống kê Doanh Thu theo đầu Sách</h2>
                     <div class="clearfix"></div>
                 </div>
-                <form th:action="@{/book-price-stats}" method="get" class="form-horizontal form-label-left">
+                <form th:action="@{/book-price-stats}" onsubmit="return validate()" method="get" class="form-horizontal form-label-left">
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" >Từ Ngày: <span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -66,6 +66,8 @@
                         <td th:text="${c[0].id}"></td>
                         <td class="cate" th:text="${c[0].bookName}" ></td>
                         <td class="total" th:text="${c[1]}" ></td>
+
+
                     </tr>
                     </tbody>
                 </table>
@@ -95,5 +97,17 @@
     }
 </script>
 <script th:src="@{/custom/js/stats/bookStats.js}"></script>
+<script>
+    function validate() {
+        let endDate = document.getElementById("endDate").value;
+        let startDate = document.getElementById("startDate").value;
+        if (endDate > startDate) {
+            return true;
+        } else {
+            alert(" Ngày bắt đầu phải nhỏ hơn ngày kết thúc");
+            return false;
+        }
+    }
+</script>
 </body>
 </html>

@@ -3,6 +3,8 @@ package com.project.library.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -29,6 +31,8 @@ public class Staff implements Serializable {
     @Column(name = "gender", length = 100, nullable = false)
     private String gender;
 
+    @Size(max = 10, min =10,message="Độ dài SĐT = 10")
+    @Pattern(regexp = "^[0][1-9]\\d{8}$|^[1-9]\\d{9}$",message="Độ dài SĐT = 10")
     @NotBlank(message = "*Please enter phone number")
     @NotNull(message = "*Please enter phone number")
     @Column(name = "phone_number", length = 100, nullable = false)

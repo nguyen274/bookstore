@@ -45,4 +45,14 @@ public class StaffServiceImpl implements StaffService {
     public List<Staff> getAllBySort() {
         return (List<Staff>) staffRepository.findAllByOrderByStaffNameAsc();
     }
+
+    public Integer checkUniqueCode(String code){
+        Integer staffCode = staffRepository.findCode(code);
+        return staffCode;
+    }
+
+    public Integer checkUniquePhone(String phone){
+        Integer staff = staffRepository.findPhone(phone);
+        return staff;
+    }
 }

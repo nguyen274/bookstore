@@ -55,4 +55,9 @@ public class BookCategoryServiceImpl implements BookCategoryService{
 		return bookCategoryRepository.findById(id).get();
 	}
 
+	public Integer checkUniqueCode(String code){
+		Integer bookCategory = bookCategoryRepository.findCode(code);
+		return bookCategory;
+	}
+
 }

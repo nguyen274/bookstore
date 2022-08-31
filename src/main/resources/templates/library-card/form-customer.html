@@ -11,7 +11,19 @@
     <title>Spark LMS - Book Form</title>
 
     <th:block th:replace="fragments/styles :: common"></th:block>
-
+    <style>
+        textarea {
+            width: 150%;
+            height: 500px;
+            padding: 12px 20px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            background-color: #f8f8f8;
+            font-size: 16px;
+            resize: none;
+        }
+    </style>
 </head>
 <body class="nav-md">
 <div class="container body">
@@ -26,8 +38,8 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2 th:if="${libraryCard1.id==null}">Thêm Thẻ Thư Viện</h2>
-                            <h2 th:if="${libraryCard1.id!=null}">Sửa Thẻ Thư Viện</h2>
+                            <h2 th:if="${libraryCard1.id==null}">Thêm Thẻ Khách Hàng</h2>
+                            <h2 th:if="${libraryCard1.id!=null}">Sửa Thẻ Khách Hàng</h2>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
@@ -39,7 +51,7 @@
 
                             <form th:action="@{/library-card/save-customer}" method="post" th:object="${libraryCard1}" class="form-horizontal form-label-left">
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Loại Thẻ Thư Viện <span class="required">*</span></label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Loại Thẻ Khách Hàng <span class="required">*</span></label>
                                     <div class="col-md-2 col-sm-2 col-xs-12">
                                         <select th:field="*{type}" class="form-control">
                                             <option  th:value="Customer" selected>Khách Hàng</option>

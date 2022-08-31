@@ -10,13 +10,16 @@
     <title>Spark LMS - Issue Form</title>
 
     <th:block th:replace="fragments/styles :: common"></th:block>
-<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" >
- --><!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css"> -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css"> -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" >
+     -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css"> -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css"> -->
+
+    <script th:src="@{/custom/js/sweetalert2.all.min.js}"></script>
 </head>
 <body class="nav-md">
 <div class="container body">
@@ -34,179 +37,171 @@
                             <h2>Issue Books</h2>
                             <div class="clearfix"></div>
                         </div>
-<!--                        <div class="x_content">-->
-<!--                            <div class="alert alert-success alert-dismissible fade in" role="alert" th:if="${successMsg}">-->
-<!--                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>-->
-<!--                                <span th:text="*{successMsg}"></span>-->
-<!--                            </div>-->
+                        <!--                        <div class="x_content">-->
+                        <!--                            <div class="alert alert-success alert-dismissible fade in" role="alert" th:if="${successMsg}">-->
+                        <!--                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>-->
+                        <!--                                <span th:text="*{successMsg}"></span>-->
+                        <!--                            </div>-->
 
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h3><span class="pull-right"><b>Issue Date:</b> <span
+                                        th:text="${#dates.format(issueDate!=null?issueDate:#dates.createNow() , 'dd-MMM-yyyy')}"></span></span>
+                                </h3>
+                            </div>
+                        </div>
+                        <br/>
+                        <form class="form-horizontal form-label-left">
                             <div class="row">
-                                <div class="col-xs-12" >
-                                    <h3><span class="pull-right"><b>Issue Date:</b> <span th:text="${#dates.format(issueDate!=null?issueDate:#dates.createNow() , 'dd-MMM-yyyy')}"></span></span></h3>
+                                <div class="col-sm-5">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Loại Thẻ</label>
+                                        <div class="col-md-8 col-sm-8 col-xs-12">
+                                            <select class="form-control" id="memberTypeSel">
+                                                <option value="">-- Select Card Type --</option>
+                                                <option th:each="mt : ${cardTypes}" th:value="${mt}"
+                                                        th:text="${mt}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Họ Và Tên</label>
+                                        <div class="col-md-8 col-sm-8 col-xs-12">
+                                            <select id="memberSel" class="form-control">
+                                                <option value="">-- Select Member --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <!--<div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Số Lượng</label>
+                                        <div class="col-md-8 col-sm-8 col-xs-12">
+                                            <input type="number" id="amount" min="1" class="form-control">
+                                            <input type="hidden" id="bookName">
+                                            <input type="hidden" id="price">
+                                        </div>
+                                    </div>-->
+
+
+                                </div>
+                                <div class="col-sm-7" style="padding-left: 0px;">
+
+                                    <div class="form-group">
+                                        <!--                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Thể Lọai</label>-->
+                                        <!--                                        <div class="col-md-6 col-sm-6 col-xs-12">-->
+                                        <!--                                            <select class="form-control" id="categorySel">-->
+                                        <!--                                                <option value="">&#45;&#45; Select Category &#45;&#45;</option>-->
+                                        <!--                                                <option th:each="c : ${categories}" th:value="${c.id}"-->
+                                        <!--                                                        th:text="${c.bookCategoryName}"></option>-->
+                                        <!--                                            </select>-->
+                                        <!--                                        </div>-->
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Book Code</label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" id="bookCode" class="form-control" required
+                                                       placeholder="Book ISBN">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="amount">Số
+                                                Lượng</label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="number" name="num" id="amount" min="1" class="form-control"
+                                                       oninput="this.value =
+                                                !!this.value && Math.abs(this.value) >= 1 ? Math.abs(this.value) : null">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3 col-sm-3 col-xs-3">
+                                            <button type="button" style="float:right;" id="addBook"
+                                                    class="btn btn-danger">Add
+                                                Book
+                                            </button>
+                                        </div>
+
+                                    </div>
+
+                                    <!--                                    <div class="form-group">-->
+                                    <!--                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Book</label>-->
+                                    <!--                                        <div class="col-md-9 col-sm-9 col-xs-12">-->
+                                    <!--                                            <select class="form-control" id="booksSel">-->
+                                    <!--                                                <option value="">&#45;&#45; Select Book &#45;&#45;</option>-->
+                                    <!--                                            </select>-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
+
+
                                 </div>
                             </div>
-                            <br />
-                            <form class="form-horizontal form-label-left">
-                                <div class="row">
-                                    <div class="col-sm-5">
-
-                                        <div class="form-group">
-                                            <label class="control-label col-md-4 col-sm-4 col-xs-12">Loại Thẻ</label>
-                                            <div class="col-md-8 col-sm-8 col-xs-12">
-												<select class="form-control" id="memberTypeSel">
-													<option value="">-- Select Card Type --</option>
-													<option th:each="mt : ${cardTypes}" th:value="${mt}"
-														th:text="${mt}"></option>
-												</select>
-											</div>
-                                        </div>
-
-                                        <!--  <div class="form-group">
-                                            <label class="control-label col-md-4 col-sm-4 col-xs-12">Họ Và Tên</label>
-                                            <div class="col-md-8 col-sm-8 col-xs-12" >
-                                            <div class="search_select_box" >
-                                                <select class="form-control" id="memberSel" data-live-search="true">
-                                                    <option value="">-- Select Member --</option>
-                                                    <option value="">-- Select Member1 --</option>
-                                                    <option value="">-- Select Member2 --</option>
-                                                    <option value="">-- Select Member3 --</option>
-                                                </select>
-                                               </div> 
-                                            </div>
-                                        </div>  -->
-                                        
-                                        <!-- <div class="form-group">
-                                            <label class="control-label col-md-4 col-sm-4 col-xs-12">Họ Và Tên</label>
-                                            <div class="col-md-8 col-sm-8 col-xs-12">
-                                                <select class="form-control" id="memberSel">
-                                                    <option value="">-- Select Member --</option>
-                                                </select>
-                                            </div>
-                                        </div> -->
-                                        
-                                         <div class="form-group">
-                                            <label class="control-label col-md-4 col-sm-4 col-xs-12">Họ Và Tên</label>
-                                            <div class="col-md-8 col-sm-8 col-xs-12" >
-                                                <select id="memberSel" class="form-control">
-                                                    <option value="">-- Select Member --</option>
-                                                </select>
-                                            </div>
-                                        </div> 
-                                        
-                                        <div class="form-group">
-                                            <label class="control-label col-md-4 col-sm-4 col-xs-12">Số Lượng</label>
-                                            <div class="col-md-8 col-sm-8 col-xs-12" >
-                                                <input type="number" id="amount" min="1" class="form-control">
-                                            </div>
-                                        </div> 
-                                        
-
-                                    </div>
-                                    <div class="col-sm-7" style="padding-left: 0px;">
-
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Category</label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <select class="form-control" id="categorySel" >
-                                                    <option value="">-- Select Category --</option>
-                                                    <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.bookCategoryName}"></option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3 col-sm-3 col-xs-3" >
-                                                <button type="button" style="float:right;" id="addBook" class="btn">Add Book</button>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Book</label>
-                                            <div class="col-md-9 col-sm-9 col-xs-12">
-                                                <select class="form-control" id="booksSel">
-                                                    <option value="">-- Select Book --</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                    </div>
+                            <div class="row">
+                                <div class="col-sm-12 mt-10" style="border: 1px solid #E6E9ED; min-height: 200px;">
+                                    <table id="issueBooksTable" class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th style="width: 50px;">#</th>
+                                            <th style="width: 120px;">Mã Sách</th>
+                                            <th>Tên Sách</th>
+                                            <th style="width: 100px;">Số Lượng</th>
+                                            <th style="width: 100px;">Giá Bán</th>
+                                            <th style="width: 100px;">Thành Tiền</th>
+                                            <th style="width: 50px;">Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-12 mt-10" style="border: 1px solid #E6E9ED; min-height: 200px;">
-                                        <table id="issueBooksTable" class="table table-striped">
-                                            <thead>
-                                            <tr>
-                                                <th style="width: 50px;">#</th>
-                                                <th style="width: 120px;">Mã Sách</th>
-                                                <th>Tên Sách</th>
-                                                <th style="width: 100px;">Số Lượng</th>
-                                                <th style="width: 100px;">Giá Bán</th>
-                                                <th style="width: 100px;">Thành Tiền</th>
-                                                <th style="width: 50px;">Action</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody></tbody>
-                                        </table>
-                                    </div>
+                            </div>
+                            <div class="row mt-10">
+                                <input type="hidden" id="totalDepositPrice">
+                                <div class="col-sm-4"><b>Tổng Tiền:</b> <b id="total"></b> <b>(VNĐ)</b></div>
+                                <div class="col-sm-8">
+                                    <button type="submit" style="float:right; width: 150px;" id="saveBtn"
+                                            class="btn btn-success">Issue Book(s)
+                                    </button>
                                 </div>
-                                <div class="row mt-10">
-                                    <input type="hidden" id="totalDepositPrice">
-                                    <div  class="col-sm-4"><b>Tổng Tiền:</b> <b id="total"></b> <b>(VNĐ)</b> </div>
-                                    <div class="col-sm-8" >
-                                        <button type="button" style="float:right; width: 150px;" id="saveBtn" class="btn btn-success">Issue Book(s)</button>
-                                    </div>
-                                </div>
-                            </form>
+                            </div>
+                        </form>
 
 
-
-
-
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- /page content -->
-
-        <div class="modal fade errors-modal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                        <h4 class="modal-title">Error(s)</h4>
-                    </div>
-                    <div class="modal-body">
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <th:block th:replace="fragments/footer :: footer"></th:block>
-
     </div>
+    <!-- /page content -->
+
+    <div class="modal fade errors-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">Error(s)</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <th:block th:replace="fragments/footer :: footer"></th:block>
+
+</div>
 </div>
 
 <th:block th:replace="fragments/scripts :: common"></th:block>
 <script th:src="@{/custom/js/issue/form.js}"></script>
-<!--  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" ></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" ></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
- <script>
-$(document).ready(function(){
-$('.search_select_box select').selectpicker();
-})
-</script>  -->
-
-<!-- <script type="text/javascript">
-$(".chosen").chosen();
-</script> -->
 </body>
 </html>

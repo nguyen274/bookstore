@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -19,8 +16,10 @@ public class Customer implements Serializable {
     @Column(name = "customer_id")
     private Long id;
 
-    @NotBlank(message = "Vui lòng nhập mã khách hàng")
-    @Column(name = "customer_code", nullable = false)
+    @NotBlank(message = "Vui lòng nhập SĐT khách hàng")
+    @Size(max = 10, min =10,message="Độ dài SĐT = 10")
+    @Pattern(regexp = "^[0][1-9]\\d{8}$|^[1-9]\\d{9}$",message="Độ dài SĐT = 10")
+    @Column(name = "customer_code", nullable = false, unique = true)
     private String customerCode;
 
     @NotBlank(message = "Vui lòng nhập tên khách hàng!")

@@ -43,6 +43,7 @@
                                 <th style="width: 50px;">Mã Nhân Viên</th>
                                 <th style="width: 50px;">Tên Nhân Viên</th>
                                 <th style="width: 100px;">Giới Tính</th>
+                                <th style="width: 100px;">Trạng Thái</th>
                                 <th style="width: 100px;">Số Điện Thoại</th>
                                 <th style="width: 50px;">Tuổi</th>
                                 <th style="width: 50px;">Quyền</th>
@@ -55,16 +56,17 @@
                                 <td th:text="${u.staff.staffCode}"></td>
                                 <td th:text="${u.staff.staffName}"></td>
                                 <td th:text="${u.staff.gender}"></td>
+                                <td th:text="${u.enabled}"></td>
                                 <td th:text="${u.staff.phoneNumber}"></td>
                                 <td th:text="${#dates.year(#dates.createToday()) - #dates.year(u.staff.dateOfBirth)}"></td>
                                 <td th:text="${u.roles}"></td>
                                 <td>
                                     <a th:href="@{'/staff/edit/' + ${u.staff.id}}" ><i class="fa fa-edit" style="margin-right: 20px"></i></a>
                                     <a th:href="@{'/staff/authentication/edit/' + ${u.id}}" ><i class="fa fa-user-plus" style="margin-right: 20px"></i></a>
-                                    <a data-toggle="modal" data-target=".remove-producer-modal" onclick="removeProducerDialog(this);"
+                                    <!--<a data-toggle="modal" data-target=".remove-producer-modal" onclick="removeProducerDialog(this);"
                                        th:data-producer-id="${u.id}" th:data-producer-name="${u.username}" style="cursor: pointer;">
                                         <i class="fa fa-remove"></i>
-                                    </a>
+                                    </a>-->
                                 </td>
                             </tr>
                             </tbody>
@@ -75,30 +77,30 @@
         </div>
         <!-- /page content -->
 
-        <div class="modal fade remove-producer-modal" tabindex="-1"
-             role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
+<!--        <div class="modal fade remove-producer-modal" tabindex="-1"-->
+<!--             role="dialog" aria-hidden="true">-->
+<!--            <div class="modal-dialog modal-sm">-->
+<!--                <div class="modal-content">-->
 
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"
-                                aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                        <h4 class="modal-title">Xóa Nhà Xuất Bản</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>Bạn có chắc chắn muốn xóa <br/><strong><span id="producer-name"></span></strong>?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default"
-                                data-dismiss="modal">Hủy</button>
-                        <button type="button" class="btn btn-primary" onclick="removeProducer();">Đồng ý!</button>
-                    </div>
+<!--                    <div class="modal-header">-->
+<!--                        <button type="button" class="close" data-dismiss="modal"-->
+<!--                                aria-label="Close">-->
+<!--                            <span aria-hidden="true">×</span>-->
+<!--                        </button>-->
+<!--                        <h4 class="modal-title">Xóa Nhà Xuất Bản</h4>-->
+<!--                    </div>-->
+<!--                    <div class="modal-body">-->
+<!--                        <p>Bạn có chắc chắn muốn xóa <br/><strong><span id="producer-name"></span></strong>?</p>-->
+<!--                    </div>-->
+<!--                    <div class="modal-footer">-->
+<!--                        <button type="button" class="btn btn-default"-->
+<!--                                data-dismiss="modal">Hủy</button>-->
+<!--                        <button type="button" class="btn btn-primary" onclick="removeProducer();">Đồng ý!</button>-->
+<!--                    </div>-->
 
-                </div>
-            </div>
-        </div>
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
 
         <th:block th:replace="fragments/footer :: footer"></th:block>
 

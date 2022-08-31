@@ -29,16 +29,16 @@ public class Grade implements Serializable{
 	@NotNull(message = "*Please select major")
 	private Major major;
 
-	@OneToMany(mappedBy = "grade",  cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Student> students;
+//	@OneToMany(mappedBy = "grade",  cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//	private List<Student> students;
 
-	public List<Student> getStudents() {
-		return students;
-	}
-
-	public void setStudents(List<Student> students) {
-		this.students = students;
-	}
+//	public List<Student> getStudents() {
+//		return students;
+//	}
+//
+//	public void setStudents(List<Student> students) {
+//		this.students = students;
+//	}
 
 	public void setCourse(Course course) {
 		this.course = course;

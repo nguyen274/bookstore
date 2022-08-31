@@ -50,4 +50,9 @@ public class StudentServiceImpl implements StudentService{
 		return studentRepository.findAllByOrderByStudentNameAsc();
 	}
 
+	public Integer checkUniquePhone(String studentPhone){
+		Integer students = studentRepository.findPhone(studentPhone);
+		return students;
+	}
+
 }

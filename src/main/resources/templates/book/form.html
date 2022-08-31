@@ -30,30 +30,45 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <div class="alert alert-success alert-dismissible fade in" role="alert" th:if="${successMsg}">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <div class="alert alert-success alert-dismissible fade in" role="alert"
+                                 th:if="${successMsg}">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                        aria-hidden="true">×</span></button>
                                 <span th:text="*{successMsg}"></span>
+                            </div>
+                            <div class="alert alert-success alert-dismissible fade in" role="alert"
+                                 th:if="${successMsgs}" style="background-color:red;border-color:red">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                        aria-hidden="true">×</span></button>
+                                <span th:text="*{successMsgs}"></span>
                             </div>
                             <br/>
 
-                            <form th:action="@{/book/save}" method="post" th:object="${book}" class="form-horizontal form-label-left"
-                            enctype="multipart/form-data">
-                            		<div class="form-group">
-				                    	<label class="control-label col-md-3 col-sm-3 col-xs-12">Thể Loại Sách<span class="required">*</span></label>
-				                        <div class="col-md-3 col-sm-3 col-xs-12">
-				                        	<select th:field="*{bookCategory}" class="form-control" id="category-selectbox">
-				                        		<option th:each="c : ${bookCategory}" th:value="${c.id}" th:text="${c.bookCategoryName}" th:book-category-code="${c.bookCategoryCode}"></option>
-				                        	</select>
-				                        </div>
-				                        <div class="col-md-3 col-sm-3 col-xs-12 mt-5">
-				                        	<span th:if="${#fields.hasErrors('bookCategory')}" th:errors="*{bookCategory}"></span>
-				                        </div>
-				                 	</div>
+                            <form th:action="@{/book/save}" method="post" th:object="${book}"
+                                  class="form-horizontal form-label-left"
+                                  enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Thể Loại Sách<span
+                                            class="required">*</span></label>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <select th:field="*{bookCategory}" class="form-control" id="category-selectbox">
+                                            <option th:each="c : ${bookCategory}" th:value="${c.id}"
+                                                    th:text="${c.bookCategoryName}"
+                                                    <!--th:book-category-code="${c.bookCategoryCode}"-->></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-12 mt-5">
+                                        <span th:if="${#fields.hasErrors('bookCategory')}"
+                                              th:errors="*{bookCategory}"></span>
+                                    </div>
+                                </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="bookCode">Mã ISBN <span class="required">*</span></label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="bookCode">Mã ISBN
+                                        <span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" id="bookCode" th:field="*{bookCode}" class="form-control col-md-7 col-xs-12" required>
+                                        <input type="text" id="bookCode" th:field="*{bookCode}"
+                                               class="form-control col-md-7 col-xs-12" required>
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12 mt-5">
                                         <span th:if="${#fields.hasErrors('bookCode')}" th:errors="*{bookCode}"></span>
@@ -61,9 +76,11 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" >Tên Sách <span class="required">*</span></label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên Sách <span
+                                            class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" th:field="*{bookName}" class="form-control col-md-7 col-xs-12" required>
+                                        <input type="text" th:field="*{bookName}"
+                                               class="form-control col-md-7 col-xs-12" required>
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12 mt-5">
                                         <span th:if="${#fields.hasErrors('bookName')}" th:errors="*{bookName}"></span>
@@ -71,74 +88,87 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" >Ảnh <span class="required">*</span></label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Ảnh <span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="hidden" th:field="*{image}" />
-                                        <input type="file" id="fileImage" name="image" accept="image/png, image/jpeg,image/jpg" class="mb-2" />
+                                        <input type="hidden" th:field="*{image}"/>
+                                        <input type="file" id="fileImage" name="image"
+                                               accept="image/png, image/jpeg,image/jpg" class="mb-2"/>
                                         <div class="mt-2">
-                                        <img id="thumbnail" alt="Image preview" class="img-fluid" th:src="@{${book.photosImagePath}}" width="200px
+                                            <img id="thumbnail" alt="Image preview" class="img-fluid"
+                                                 th:src="@{${book.photosImagePath}}" width="200px
 "/>
                                         </div>
                                     </div>
                                 </div>
 
-								<div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" >Năm Sản Xuất <span class="required">*</span></label>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Năm Sản Xuất <span
+                                            class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" th:field="*{yearOfManufucture}" class="form-control col-md-7 col-xs-12" required>
+                                        <input type="text" th:field="*{yearOfManufucture}"
+                                               class="form-control col-md-7 col-xs-12" required>
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12 mt-5">
-                                        <span th:if="${#fields.hasErrors('yearOfManufucture')}" th:errors="*{yearOfManufucture}"></span>
+                                        <span th:if="${#fields.hasErrors('yearOfManufucture')}"
+                                              th:errors="*{yearOfManufucture}"></span>
                                     </div>
                                 </div>
-                                
-                            		<div class="form-group">
-				                    	<label class="control-label col-md-3 col-sm-3 col-xs-12">Tác Giả<span class="required">*</span></label>
-				                        <div class="col-md-3 col-sm-3 col-xs-12">
-				                        	<select th:field="*{author}" class="form-control" >
-				                        		<option th:each="a : ${author}" th:value="${a.id}" th:text="${a.authorName}"></option>
-				                        	</select>
-				                        </div>
-				                        <div class="col-md-3 col-sm-3 col-xs-12 mt-5">
-				                        	<span th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></span>
-				                        </div>
-				                 	</div>
-				                 	
-                            		<div class="form-group">
-				                    	<label class="control-label col-md-3 col-sm-3 col-xs-12">Nhà Sản Xuất<span class="required">*</span></label>
-				                        <div class="col-md-3 col-sm-3 col-xs-12">
-				                        	<select th:field="*{producer}" class="form-control" >
-				                        		<option th:each="p : ${producer}" th:value="${p.id}" th:text="${p.producerName}" ></option>
-				                        	</select>
-				                        </div>
-				                        <div class="col-md-3 col-sm-3 col-xs-12 mt-5">
-				                        	<span th:if="${#fields.hasErrors('producer')}" th:errors="*{producer}"></span>
-				                        </div>
-				                 	</div>
-				                 	
-                            		<div class="form-group">
-				                    	<label class="control-label col-md-3 col-sm-3 col-xs-12">Kho Sách<span class="required">*</span></label>
-				                        <div class="col-md-3 col-sm-3 col-xs-12">
-				                        	<select th:field="*{bookStore}" class="form-control" >
-				                        		<option th:each="b : ${bookStore}" th:value="${b.id}" th:text="${b.bookStoreName}" ></option>
-				                        	</select>
-				                        </div>
-				                        <div class="col-md-3 col-sm-3 col-xs-12 mt-5">
-				                        	<span th:if="${#fields.hasErrors('bookStore')}" th:errors="*{bookStore}"></span>
-				                        </div>
-				                 	</div>
+
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" >Giá Sách <span class="required">*</span></label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Tác Giả<span
+                                            class="required">*</span></label>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <select th:field="*{author}" class="form-control">
+                                            <option th:each="a : ${author}" th:value="${a.id}"
+                                                    th:text="${a.authorName}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-12 mt-5">
+                                        <span th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Nhà Xuất Bản<span
+                                            class="required">*</span></label>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <select th:field="*{producer}" class="form-control">
+                                            <option th:each="p : ${producer}" th:value="${p.id}"
+                                                    th:text="${p.producerName}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-12 mt-5">
+                                        <span th:if="${#fields.hasErrors('producer')}" th:errors="*{producer}"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" hidden>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Kho Sách<span
+                                            class="required">*</span></label>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <select th:field="*{bookStore}" class="form-control">
+                                            <option th:each="b : ${bookStore}" th:value="${b.id}"
+                                                    th:text="${b.bookStoreName}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-12 mt-5">
+                                        <span th:if="${#fields.hasErrors('bookStore')}" th:errors="*{bookStore}"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá Sách <span
+                                            class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="number" min="0"  th:field="*{price}" class="form-control col-md-7 col-xs-12"  required>
+                                        <input type="number" min="0" th:field="*{price}"
+                                               class="form-control col-md-7 col-xs-12" required>
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12 mt-5">
                                         <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" >Giá Mượn <span class="required">*</span></label>
+                                <!--<div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" >Giá Mượn </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="number" min="0" th:field="*{borrowPrice}" class="form-control col-md-7 col-xs-12" >
                                     </div>
@@ -148,28 +178,31 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" >Giá Đặt Cọc (Theo Bìa)<span class="required">*</span></label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" >Giá Đặt Cọc (Theo Bìa)</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="number" min="0" th:field="*{depositPrice}" class="form-control col-md-7 col-xs-12"  required>
+                                        <input type="number" min="0" th:field="*{depositPrice}" class="form-control col-md-7 col-xs-12" >
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12 mt-5">
                                         <span th:if="${#fields.hasErrors('depositPrice')}" th:errors="*{depositPrice}"></span>
                                     </div>
-                                </div>
-                                
-                                <div class="form-group"> 
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" >Số Lượng<span class="required">*</span></label>
+                                </div>-->
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Số Lượng<span
+                                            class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="number" min="0" th:field="*{amount}" class="form-control col-md-7 col-xs-12" required>
+                                        <input type="number" min="0" th:field="*{amount}"
+                                               class="form-control col-md-7 col-xs-12" required>
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12 mt-5">
                                         <span th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}"></span>
                                     </div>
                                 </div>
 
-                                <input type="hidden" th:if="${id!=null}" th:field="*{id}" />
-<!--                                <input type="hidden" th:field="*{status}" />-->
-                                <input type="hidden" name="createDate" id="createDate" th:value="${book.createDate}?${#dates.format(book.createDate, 'yyyy-MM-dd')}:${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" />
+                                <input type="hidden" th:if="${id!=null}" th:field="*{id}"/>
+                                <!--                                <input type="hidden" th:field="*{status}" />-->
+                                <input type="hidden" name="createDate" id="createDate"
+                                       th:value="${book.createDate}?${#dates.format(book.createDate, 'yyyy-MM-dd')}:${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"/>
 
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
@@ -178,7 +211,9 @@
                                             <button class="btn btn-primary" type="reset" id="resetBtn">Reset</button>
                                         </th:block>
                                         <th:block th:if="${id!=null}">
-                                            <button class="btn btn-primary" type="button" id="gotoListBtn" >Go to list page</button>
+                                            <button class="btn btn-primary" type="button" id="gotoListBtn">Go to list
+                                                page
+                                            </button>
                                         </th:block>
                                         <button type="submit" class="btn btn-success">Save</button>
                                     </div>
@@ -200,27 +235,27 @@
 <th:block th:replace="fragments/scripts :: common"></th:block>
 <script th:src="@{/custom/js/book/form.js}"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
-       $("#buttonCancel").on("click", function(){
-           window.location = "[[@{/book}]]";
-       });
-       $("#fileImage").change(function(){
-           fileSize = this.files[0].size;
-           alert("Dung lượng file là " + Math.ceil(fileSize/1024) + " Mb");
-           if(fileSize > 1048576) {
-               this.setCustomValidity("Cần chọn file nhỏ hơn 1MB!");
-               this.reportValidity();
-           }else {
-               this.setCustomValidity("");
-               showImageThumbnails(this);
-           }
-       });
+    $(document).ready(function () {
+        $("#buttonCancel").on("click", function () {
+            window.location = "[[@{/book}]]";
+        });
+        $("#fileImage").change(function () {
+            fileSize = this.files[0].size;
+            alert("Dung lượng file là " + Math.ceil(fileSize / 1024) + " KB");
+            if (fileSize > 1048576) {
+                this.setCustomValidity("Cần chọn file nhỏ hơn 1MB!");
+                this.reportValidity();
+            } else {
+                this.setCustomValidity("");
+                showImageThumbnails(this);
+            }
+        });
     });
 
-    function showImageThumbnails(fileInput){
+    function showImageThumbnails(fileInput) {
         var file = fileInput.files[0];
         var reader = new FileReader();
-        reader.onload = function(e){
+        reader.onload = function (e) {
             $("#thumbnail").attr("src", e.target.result);
         };
         reader.readAsDataURL(file);

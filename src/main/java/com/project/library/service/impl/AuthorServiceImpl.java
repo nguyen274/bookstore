@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.project.library.model.Author;
 import com.project.library.repository.AuthorRepository;
 import com.project.library.service.AuthorService;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 
 @Service
@@ -48,6 +50,11 @@ public class AuthorServiceImpl implements AuthorService{
 	@Override
 	public List<Author> getAllBySort() {
 		return authorRepository.findAllByOrderByAuthorNameAsc();
+	}
+
+	public Integer checkUniqueCode(String code){
+		Integer author = authorRepository.findCode(code);
+		return author;
 	}
 
 

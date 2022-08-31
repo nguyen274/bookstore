@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -17,7 +18,7 @@ public class Student {
 	@Column(name = "studentId", nullable = false)
 	private Long id;
 
-	@ManyToOne
+	/*@ManyToOne
 	@JoinColumn(name = "grade_id")
 	private Grade grade;
 
@@ -27,11 +28,11 @@ public class Student {
 
 	public void setGrade(Grade grade) {
 		this.grade = grade;
-	}
+	}*/
 
-	@NotBlank(message = "Please enter student code")
-	@Column(name = "studentCode", length = 100, nullable = false)
-	private String studentCode;
+	/*@NotBlank(message = "Please enter student code")
+	@Column(name = "studentCode", length = 100, nullable = false,unique = true)
+	private String studentCode;*/
 
 	@OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnore
@@ -56,13 +57,13 @@ public class Student {
 		this.libraryCard = libraryCard;
 	}
 
-	public String getStudentCode() {
+	/*public String getStudentCode() {
 		return studentCode;
 	}
 
 	public void setStudentCode(String studentCode) {
 		this.studentCode = studentCode;
-	}
+	}*/
 
 	@NotBlank(message = "*Please enter student name")
 	@Column(name = "studentName", length = 100, nullable = false)
@@ -72,8 +73,10 @@ public class Student {
 	@Column(name = "studentAddress", length = 100, nullable = false)
 	private String studentAddress;
 
+	@Size(max = 10, min =10,message="Độ dài SĐT = 10")
+	@Pattern(regexp = "^[0][1-9]\\d{8}$|^[1-9]\\d{9}$",message="Độ dài SĐT = 10")
 	@NotBlank(message = "*Please enter student phone")
-	@Column(name = "studentPhone", length = 10, nullable = false)
+	@Column(name = "studentPhone", length = 10, nullable = false,unique = true)
 	private String studentPhone;
 
 	@NotNull(message = "*Please enter student birth")

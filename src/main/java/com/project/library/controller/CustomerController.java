@@ -41,7 +41,7 @@ public class CustomerController {
         Optional<Customer> customerEdit = customerService.findCustomerById(id);
         if(customerEdit.isPresent()) {
             customerEdit.ifPresent(customer -> model.addAttribute("customer", customer));
-            return "/customer/form";
+            return "/customer/edit";
         } else {
             return "redirect:/customer/add";
         }
@@ -51,6 +51,43 @@ public class CustomerController {
         if( bindingResult.hasErrors()){
 
             return  "/customer/form";
+        }
+        if (customerService.checkUniquePhone(customer.getCustomerCode()) > 0){
+            redirectAttributes.addFlashAttribute("successMsgs", "Số Điện Thoại '" + customer.getCustomerCode() + "' đã được đăng kí.");
+            return "redirect:/customer/add";
+        }
+        if (customerService.checkUniqueEmail(customer.getEmail()) > 0){
+            redirectAttributes.addFlashAttribute("successMsgs1", "Email '" + customer.getEmail() + "' đã được đăng kí.");
+            return "redirect:/customer/add";
+        }
+
+        if(customer.getId() == null){
+            customer.setStatus(Constants.CUSTOMER_NOT_STATUS);
+            customerService.addNew(customer);
+            redirectAttributes.addFlashAttribute("successMsg", "'" + customer.getCustomerName() + "' đã được thêm sv mới.");
+            return "redirect:/customer/add";
+        } else {
+            customer.setStatus(Constants.CUSTOMER_NOT_STATUS);
+            Customer updateStudent = customerService.saveCustomer(customer);
+            redirectAttributes.addFlashAttribute("successMsg", "Thay đổi '" + customer.getCustomerName() + "' thành công. ");
+            return "redirect:/customer/edit/"+updateStudent.getId();
+        }
+
+    }
+
+    @RequestMapping(value = "/save-edit", method = RequestMethod.POST)
+    public String saveEdit(@Valid Customer customer, final BindingResult bindingResult, final RedirectAttributes redirectAttributes){
+        if( bindingResult.hasErrors()){
+
+            return  "/customer/form";
+        }
+        if (customerService.checkUniquePhone(customer.getCustomerCode()) > 1){
+            redirectAttributes.addFlashAttribute("successMsgs", "Số Điện Thoại '" + customer.getCustomerCode() + "' đã được đăng kí.");
+            return "redirect:/customer/add";
+        }
+        if (customerService.checkUniqueEmail(customer.getEmail()) > 1){
+            redirectAttributes.addFlashAttribute("successMsgs1", "Email '" + customer.getEmail() + "' đã được đăng kí.");
+            return "redirect:/customer/add";
         }
 
         if(customer.getId() == null){

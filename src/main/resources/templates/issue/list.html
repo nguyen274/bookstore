@@ -35,12 +35,13 @@
                             <tr>
                                 <th>Họ Và Tên</th>
                                 <th>Sách Bán</th>
+                                <th>Mã Sách</th>
                                 <th>Số Lượng</th>
                                 <th style="width: 100px;">Ngày Bán</th>
                                 <th style="width: 110px;">Thành Tiền (VNĐ)</th>
                                 <!-- <th style="width: 110px;">Tiền Cọc (VNĐ)</th> -->
                                 <!-- <th style="width: 100px;">Tiền Phạt (VNĐ)</th>-->
-                                <th style="width: 100px;">Lợi Nhuận (VNĐ)</th> 
+                                <!--<th style="width: 100px;">Lợi Nhuận (VNĐ)</th> -->
                                 <th style="width: 60px;">Actions</th>
                             </tr>
                             </thead>
@@ -58,19 +59,28 @@
                                 <td>
                                     <ul th:id="${'issue_' + i.id}">
                                         <th:block th:each="ib : ${i.callCardDetails}">
+                                            <li th:if="${ib.returned==0}" th:text="${ib.book.bookCode}"  th:data-id="${ib.id}"></li>
+                                        </th:block>
+                                    </ul>
+                                </td>
+
+                                <td>
+                                    <ul th:id="${'issue_' + i.id}">
+                                        <th:block th:each="ib : ${i.callCardDetails}">
                                             <li th:if="${ib.returned==0}" th:text="${ib.amount}"  th:data-id="${ib.id}"></li>
                                         </th:block>
                                     </ul>
                                 </td>
-                                <td th:text="${#dates.format(i.issueDate, 'dd-MM-yyyy')}"></td>
+                                <td th:text="${i.issueDate}"></td>
                                 <td th:text="${#numbers.formatDecimal(i.total,0, 'COMMA', 3, 'POINT')}"></td>
                                 <!-- <td th:text="${#numbers.formatDecimal(i.totalDepositPrice,0, 'COMMA', 3, 'POINT')}"></td>
                                 <td th:text="${#numbers.formatDecimal(i.totalFines,0, 'COMMA', 3, 'POINT')}"></td> -->
-                                <td th:if="${i.totalFines == null}" th:text="${#numbers.formatDecimal(i.total - i.totalDepositPrice ,0, 'COMMA', 3, 'POINT')}" style="color: #00CC33"><b></b></td>
-                                <td th:if="${i.totalFines != null}" th:text="${#numbers.formatDecimal(i.total - i.totalDepositPrice + i.totalFines ,0, 'COMMA', 3, 'POINT')}" style="color: #00CC33"><b></b></td>
+
+                                <!--<td th:if="${i.totalFines == null}" th:text="${#numbers.formatDecimal(i.total - i.totalDepositPrice ,0, 'COMMA', 3, 'POINT')}" style="color: #00CC33"><b></b></td>
+                                <td th:if="${i.totalFines != null}" th:text="${#numbers.formatDecimal(i.total - i.totalDepositPrice + i.totalFines ,0, 'COMMA', 3, 'POINT')}" style="color: #00CC33"><b></b></td>-->
                                 <td>
-                                    <a href="javascript:void(0);" title="Return book(s)" th:onclick="'returnBook(' + ${i.id} + ')'"><i class="fa fa-undo" style="margin-right: 10px"></i></a>
-                                    <a th:href="@{'/issue/edit/' + ${i.id}}" ><i class="fa fa-edit" style="margin-right: 10px"></i></a>
+                                    <!--<a href="javascript:void(0);" title="Return book(s)" th:onclick="'returnBook(' + ${i.id} + ')'"><i class="fa fa-undo" style="margin-right: 10px"></i></a>
+                                    <a th:href="@{'/issue/edit/' + ${i.id}}" ><i class="fa fa-edit" style="margin-right: 10px"></i></a>-->
                                     <a th:href="@{'/issue/print/' + ${i.id}}" target="_blank"><i class="fa fa-print"></i></a>
                                 </td>
                             </tr>

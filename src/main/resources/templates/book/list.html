@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://thymeleaf.org">
+      xmlns:th="http://thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -45,7 +45,7 @@
                                 <th style="width: 100px;">Tên Sách</th>
                                 <th style="width: 100px;">Thể Loại</th>
                                 <th style="width: 50px;">Tác Giả</th>
-                                <th style="width: 100px;">Nhà Sản Xuất</th>
+                                <th style="width: 100px;">Nhà Xuất Bản</th>
                                 <th style="width: 30px;">Giá Sách (VNĐ)</th>
                                 <th style="width: 30px;">Số Lượng</th>
                                 <!-- <th style="width: 30px;">Giá Mượn (VNĐ)</th>
@@ -71,7 +71,7 @@
                                 <td th:text="${#numbers.formatDecimal(b.depositPrice,0, 'COMMA', 0, 'POINT')}">VNĐ</td> -->
                                 <td th:text="${b.amount}"></td>
                                 <td>
-                                    <a th:href="@{'/book/edit/' + ${b.id}}" ><i class="fa fa-edit" style="margin-right: 20px"></i></a>
+                                    <a sec:authorize="hasAnyAuthority('ADMIN','EDITOR')" th:href="@{'/book/edit/' + ${b.id}}" ><i class="fa fa-edit" style="margin-right: 20px"></i></a>
                                     <!--<a data-toggle="modal" data-target=".remove-book-modal" onclick="removeBookDialog(this);"
                                        th:data-book-id="${b.id}" th:data-book-name="${b.bookName}" style="cursor: pointer;">
                                         <i class="fa fa-remove"></i>

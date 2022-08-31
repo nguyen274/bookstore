@@ -34,12 +34,24 @@
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                                 <span th:text="*{successMsg}"></span>
                             </div>
+                            <div class="alert alert-success alert-dismissible fade in" role="alert"
+                                 th:if="${successMsgs}" style="background-color:red;border-color:red">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                        aria-hidden="true">×</span></button>
+                                <span th:text="*{successMsgs}"></span>
+                            </div>
+                            <div class="alert alert-success alert-dismissible fade in" role="alert"
+                                 th:if="${successMsgs1}" style="background-color:red;border-color:red">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                        aria-hidden="true">×</span></button>
+                                <span th:text="*{successMsgs1}"></span>
+                            </div>
                             <br/>
 
                             <form th:action="@{/producer/save}" method="post" th:object="${producer}" class="form-horizontal form-label-left">
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="bookCategoryCode">Mã Nhà Xuất Bản <span class="required">*</span></label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Mã Nhà Xuất Bản <span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" th:field="*{producerCode}" class="form-control col-md-7 col-xs-12">
                                     </div>

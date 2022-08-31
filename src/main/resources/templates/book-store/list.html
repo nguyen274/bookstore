@@ -54,10 +54,10 @@
                                 <td th:text="${s.note}"></td>
                                 <td>
                                     <a th:href="@{'/book-store/edit/' + ${s.id}}" ><i class="fa fa-edit" style="margin-right: 20px"></i></a>
-                                    <a data-toggle="modal" data-target=".remove-book-store-modal" onclick="removeBookStoreDialog(this);"
+                                    <!--<a data-toggle="modal" data-target=".remove-book-store-modal" onclick="removeBookStoreDialog(this);"
                                        th:data-store-id="${s.id}" th:data-store-name="${s.bookStoreName}" style="cursor: pointer;">
                                         <i class="fa fa-remove"></i>
-                                    </a>
+                                    </a>-->
                                 </td>
                             </tr>
                             </tbody>
@@ -68,7 +68,7 @@
         </div>
         <!-- /page content -->
 
-        <div class="modal fade remove-book-store-modal" tabindex="-1"
+        <!--<div class="modal fade remove-book-store-modal" tabindex="-1"
              role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
@@ -91,7 +91,7 @@
 
                 </div>
             </div>
-        </div>
+        </div>-->
 
         <th:block th:replace="fragments/footer :: footer"></th:block>
 

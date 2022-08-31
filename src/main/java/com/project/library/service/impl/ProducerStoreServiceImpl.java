@@ -50,4 +50,13 @@ public class ProducerStoreServiceImpl implements ProducerService{
 		return producerRepository.findAllByOrderByProducerNameAsc();
 	}
 
+	public Integer checkUniqueCode(String code){
+		Integer producer = producerRepository.findCode(code);
+		return producer;
+	}
+	public Integer checkUniqueName(String name){
+		Integer producerName = producerRepository.findName(name);
+		return producerName;
+	}
+
 }

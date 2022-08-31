@@ -66,4 +66,13 @@ public class BookServiceImpl implements BookService{
 		return bookRepository.totalBookOfCategory();
 	}
 
+	public Integer checkUniqueISBN(String isbn){
+		Integer book = bookRepository.findISBN(isbn);
+		return book;
+	}
+
+	public Book getBookByBookCode(String bookCode) {
+		return bookRepository.getByBookCode(bookCode);
+	}
+
 }

@@ -34,9 +34,21 @@
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                                 <span th:text="*{successMsg}"></span>
                             </div>
+                            <div class="alert alert-success alert-dismissible fade in" role="alert"
+                                 th:if="${successMsgs}" style="background-color:red;border-color:red">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                        aria-hidden="true">×</span></button>
+                                <span th:text="*{successMsgs}"></span>
+                            </div>
+                            <div class="alert alert-success alert-dismissible fade in" role="alert"
+                                 th:if="${successMsgs1}" style="background-color:red;border-color:red">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                        aria-hidden="true">×</span></button>
+                                <span th:text="*{successMsgs1}"></span>
+                            </div>
                             <br/>
 
-                            <form th:action="@{/staff/save}" method="post" th:object="${staff}" class="form-horizontal form-label-left">
+                            <form th:action="@{/staff/save}" method="post" onsubmit="return validate()" th:object="${staff}" class="form-horizontal form-label-left">
 
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" >Mã Nhân Viên <span class="required">*</span></label>
@@ -67,6 +79,7 @@
                                         </select>
                                     </div>
                                 </div>
+
 
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Ngày Sinh <span class="required">*</span></label>
@@ -128,5 +141,59 @@
 
 <script th:src="@{/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js}"></script>
 <script th:src="@{/custom/js/staff/form.js}"></script>
+<script>
+    function validate() {
+
+        Date.prototype.toShortFormat = function () {
+
+            let monthNames = ["Jan", "Feb", "Mar", "Apr",
+                "May", "Jun", "Jul", "Aug",
+                "Sep", "Oct", "Nov", "Dec"];
+
+            let day = this.getDate();
+
+            let monthIndex = this.getMonth();
+            let monthName = monthNames[monthIndex];
+
+            let year = this.getFullYear();
+
+            return `${day}-${monthName}-${year}`;
+        }
+        let day = new Date();
+        let inputVal = document.getElementById("dateOfBirth").value;
+        // get date
+        let dob_0 = inputVal.slice(0, 2);
+        let date_0 = day.toShortFormat().slice(0, 2);
+        var a = Number(dob_0);
+        var b = Number(date_0);
+        // get month
+        let dob2 = inputVal.slice(3, 6);
+        let date2 = day.toShortFormat().slice(3, 6);
+        let monthName = {
+            "Jan": 1, "Feb": 2, "Mar": 3, "Apr": 4,
+            "May": 5, "Jun": 6, "Jul": 7, "Aug": 8,
+            "Sep": 9, "Oct": 10, "Nov": 11, "Dec": 12
+        };
+        var dob_2 = monthName[dob2];
+        var date_2 = monthName[date2];
+        var c = Number(dob_2);
+        var d = Number(date_2);
+        // get year
+        let dob_3 = inputVal.slice(7, 11);
+        let date_3 = day.toShortFormat().slice(7, 11);
+        var e = Number(dob_3);
+        var f = Number(date_3);
+
+        var dob = new Date(e, c - 1, a);
+        var date = new Date(f, d - 1, b);
+
+        if (date > dob) {
+            return true;
+        } else {
+            alert("Ngày sinh phải nhỏ hơn " + date.toShortFormat());
+            return false;
+        }
+    }
+</script>
 </body>
 </html>

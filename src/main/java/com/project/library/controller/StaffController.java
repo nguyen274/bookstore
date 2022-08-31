@@ -47,7 +47,7 @@ public class StaffController {
         Optional<Staff> staffEdit = staffService.findStaffById(id);
 
 
-        if(staffEdit != null) {
+        if(staffEdit.isPresent()) {
             staffEdit.ifPresent(staff -> model.addAttribute("staff", staff));
             return "/staff/form";
         } else {
@@ -59,6 +59,16 @@ public class StaffController {
         if( bindingResult.hasErrors()){
             return  "/staff/form";
         }
+
+        /*if (staffService.checkUniqueCode(staff.getStaffCode()) > 0){
+            redirectAttributes.addFlashAttribute("successMsgs", "Mã Nhân Viên '" + staff.getStaffCode() + "' đã được đăng kí.");
+            return "redirect:/staff/add";
+        }
+
+        if (staffService.checkUniquePhone(staff.getPhoneNumber()) > 0){
+            redirectAttributes.addFlashAttribute("successMsgs1", "SĐT Nhân Viên '" + staff.getPhoneNumber() + "' đã được đăng kí.");
+            return "redirect:/staff/add";
+        }*/
 
         if(staff.getId() == null){
             staffService.addNew(staff);
@@ -74,6 +84,6 @@ public class StaffController {
     @RequestMapping(value = "/remove/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable("id") Long id, Model model){
         staffService.deleteStaff(id);
-        return "redirect:/staff";
+        return "redirect:/staff/list";
     }
 }

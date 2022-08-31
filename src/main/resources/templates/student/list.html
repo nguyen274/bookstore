@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://thymeleaf.org">
+      xmlns:th="http://thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -40,8 +40,8 @@
                             <thead>
                             <tr>
                                 <th style="width: 50px;">ID</th>
-                                <th style="width: 150px;">Mã Sinh viên</th>
-                                <th style="width: 150px;">Tên Lớp</th>
+                                <!--<th style="width: 150px;">Mã Sinh viên</th>
+                                <th style="width: 150px;">Tên Lớp</th>-->
                                 <th style="width: 150px;">Tên</th>
                                 <th style="width: 150px;">SĐT</th>
                                 <th>Tuổi</th>
@@ -53,19 +53,19 @@
                             <tbody>
                             <tr th:each="a : ${student}">
                                 <td th:text="${a.id}"></td>
-                                <td th:text="${a.studentCode}"></td>
-                                <td th:text="${a.grade.gradeName}"></td>
+                                <!--<td th:text="${a.studentCode}"></td>
+                                <td th:text="${a.grade.gradeName}"></td>-->
                                 <td th:text="${a.studentName}"></td>
                                 <td th:text="${a.studentPhone}"></td>
                                 <td th:text="${#dates.year(#dates.createToday()) - #dates.year(a.studentBirth)}"></td>
                                 <td th:text="${a.studentAddress}"></td>
                                 <td th:text="${a.studentGenre}"></td>
                                 <td>
-                                    <a th:href="@{'/student/edit/' + ${a.id}}" ><i class="fa fa-edit" style="margin-right: 20px"></i></a>
-                                    <a data-toggle="modal" data-target=".remove-student-modal" onclick="removeStudentDialog(this);"
+                                    <a sec:authorize="hasAnyAuthority('ADMIN','EDITOR')" th:href="@{'/student/edit/' + ${a.id}}" ><i class="fa fa-edit" style="margin-right: 20px"></i></a>
+                                    <!--<a data-toggle="modal" data-target=".remove-student-modal" onclick="removeStudentDialog(this);"
                                        th:data-student-id="${a.id}" th:data-student-name="${a.studentName}" style="cursor: pointer;">
                                         <i class="fa fa-remove"></i>
-                                    </a>
+                                    </a>-->
                                 </td>
                             </tr>
                             </tbody>
@@ -76,7 +76,7 @@
         </div>
         <!-- /page content -->
 
-        <div class="modal fade remove-student-modal" tabindex="-1"
+        <!--<div class="modal fade remove-student-modal" tabindex="-1"
              role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
@@ -99,7 +99,7 @@
 
                 </div>
             </div>
-        </div>
+        </div>-->
 
         <th:block th:replace="fragments/footer :: footer"></th:block>
 

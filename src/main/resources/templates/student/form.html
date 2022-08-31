@@ -30,15 +30,24 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <div class="alert alert-success alert-dismissible fade in" role="alert" th:if="${successMsg}">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <div class="alert alert-success alert-dismissible fade in" role="alert"
+                                 th:if="${successMsg}">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                        aria-hidden="true">×</span></button>
                                 <span th:text="*{successMsg}"></span>
+                            </div>
+                            <div class="alert alert-success alert-dismissible fade in" role="alert"
+                                 th:if="${successMsgs}" style="background-color:red;border-color:red">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                        aria-hidden="true">×</span></button>
+                                <span th:text="*{successMsgs}"></span>
                             </div>
                             <br/>
 
-                            <form th:action="@{/student/save}" method="post" th:object="${student}" class="form-horizontal form-label-left" id="student-form">
+                            <form th:action="@{/student/save}" onsubmit="return validate()" method="post"
+                                  th:object="${student}" class="form-horizontal form-label-left" id="student-form">
 
-                                <div class="form-group">
+                                <!--<div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" >Mã Sinh Viên <span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" th:field="*{studentCode}"  class="form-control col-md-7 col-xs-12">
@@ -46,52 +55,67 @@
                                     <div class="col-md-3 col-sm-3 col-xs-12 mt-5">
                                         <span th:if="${#fields.hasErrors('studentCode')}" th:errors="*{studentCode}"></span>
                                     </div>
-                                </div>
-                               
+                                </div>-->
+
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" >Tên Sinh Viên <span class="required">*</span></label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên Sinh Viên <span
+                                            class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" th:field="*{studentName}" class="form-control col-md-7 col-xs-12">
+                                        <input type="text" th:field="*{studentName}"
+                                               class="form-control col-md-7 col-xs-12">
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12 mt-5">
-                                        <span th:if="${#fields.hasErrors('studentName')}" th:errors="*{studentName}"></span>
+                                        <span th:if="${#fields.hasErrors('studentName')}"
+                                              th:errors="*{studentName}"></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" >Địa chỉ <span class="required">*</span></label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Địa chỉ <span
+                                            class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" th:field="*{studentAddress}" class="form-control col-md-7 col-xs-12">
+                                        <input type="text" th:field="*{studentAddress}"
+                                               class="form-control col-md-7 col-xs-12">
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12 mt-5">
-                                        <span th:if="${#fields.hasErrors('studentAddress')}" th:errors="*{studentAddress}"></span>
+                                        <span th:if="${#fields.hasErrors('studentAddress')}"
+                                              th:errors="*{studentAddress}"></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" >SĐT <span class="required">*</span></label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">SĐT <span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" th:field="*{studentPhone}" class="form-control col-md-7 col-xs-12">
+                                        <span th:text="*{studentPhone}"></span>
+                                        <input type="text" th:field="*{studentPhone}"
+                                               class="form-control col-md-7 col-xs-12">
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12 mt-5">
-                                        <span th:if="${#fields.hasErrors('studentPhone')}" th:errors="*{studentPhone}"></span>
+                                        <span th:if="${#fields.hasErrors('studentPhone')}"
+                                              th:errors="*{studentPhone}"></span>
+                                        <!--                                        <span th:text="*{successMsg}"></span>-->
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Ngày Sinh <span class="required">*</span></label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Ngày Sinh <span
+                                            class="required">*</span></label>
                                     <div class="col-md-2 col-sm-2 col-xs-12">
 
-                                        <input type="text" class="form-control" data-inputmask="'mask': '99-Aaa-9999'" name="studentBirth" id="studentBirth"
-                                               th:value="${student.studentBirth}?${#dates.format(student.studentBirth, 'dd-MMM-yyyy')}:''" >
-                                        <span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
+                                        <input type="text" class="form-control" data-inputmask="'mask': '99-Aaa-9999'"
+                                               name="studentBirth" id="studentBirth"
+                                               th:value="${student.studentBirth}?${#dates.format(student.studentBirth, 'dd-MMM-yyyy')}:''">
+                                        <span class="fa fa-calendar form-control-feedback right"
+                                              aria-hidden="true"></span>
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12 mt-5">
                                         <span id="dobErr"></span>
-                                        <span th:if="${#fields.hasErrors('studentBirth')}" th:errors="*{studentBirth}"></span>
+                                        <span th:if="${#fields.hasErrors('studentBirth')}"
+                                              th:errors="*{studentBirth}"></span>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Giới Tính <span class="required">*</span></label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Giới Tính <span
+                                            class="required">*</span></label>
                                     <div class="col-md-2 col-sm-2 col-xs-12">
                                         <select th:field="*{studentGenre}" class="form-control">
                                             <option th:value="'Male'" th:text="Male"></option>
@@ -100,7 +124,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
+                                <!--<div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên Lớp Học<span class="required">*</span></label>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <select th:field="*{grade}" class="form-control" >
@@ -110,11 +134,11 @@
                                     <div class="col-md-3 col-sm-3 col-xs-12 mt-5">
                                         <span th:if="${#fields.hasErrors('grade')}" th:errors="*{grade}"></span>
                                     </div>
-                                </div>
-                               
+                                </div>-->
 
-                                <input type="hidden" th:if="${id!=null}" th:field="*{id}" />
-<!--                                <input type="hidden" th:field="*{status}" />-->
+
+                                <input type="hidden" th:if="${id!=null}" th:field="*{id}"/>
+                                <!--                                <input type="hidden" th:field="*{status}" />-->
                                 <input type="hidden" name="createDate" id="createDate"/>
 
                                 <div class="ln_solid"></div>
@@ -124,7 +148,9 @@
                                             <button class="btn btn-primary" type="reset" id="resetBtn">Reset</button>
                                         </th:block>
                                         <th:block th:if="${id!=null}">
-                                            <button class="btn btn-primary" type="button" id="gotoListBtn" >Go to list page</button>
+                                            <button class="btn btn-primary" type="button" id="gotoListBtn">Go to list
+                                                page
+                                            </button>
                                         </th:block>
                                         <button type="submit" class="btn btn-success">Save</button>
                                     </div>
@@ -146,5 +172,59 @@
 <th:block th:replace="fragments/scripts :: common"></th:block>
 <script th:src="@{/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js}"></script>
 <script th:src="@{/custom/js/student/form.js}"></script>
+<script>
+    function validate() {
+
+        Date.prototype.toShortFormat = function () {
+
+            let monthNames = ["Jan", "Feb", "Mar", "Apr",
+                "May", "Jun", "Jul", "Aug",
+                "Sep", "Oct", "Nov", "Dec"];
+
+            let day = this.getDate();
+
+            let monthIndex = this.getMonth();
+            let monthName = monthNames[monthIndex];
+
+            let year = this.getFullYear();
+
+            return `${day}-${monthName}-${year}`;
+        }
+        let day = new Date();
+        let inputVal = document.getElementById("studentBirth").value;
+        // get date
+        let dob_0 = inputVal.slice(0, 2);
+        let date_0 = day.toShortFormat().slice(0, 2);
+        var a = Number(dob_0);
+        var b = Number(date_0);
+        // get month
+        let dob2 = inputVal.slice(3, 6);
+        let date2 = day.toShortFormat().slice(3, 6);
+        let monthName = {
+            "Jan": 1, "Feb": 2, "Mar": 3, "Apr": 4,
+            "May": 5, "Jun": 6, "Jul": 7, "Aug": 8,
+            "Sep": 9, "Oct": 10, "Nov": 11, "Dec": 12
+        };
+        var dob_2 = monthName[dob2];
+        var date_2 = monthName[date2];
+        var c = Number(dob_2);
+        var d = Number(date_2);
+        // get year
+        let dob_3 = inputVal.slice(7, 11);
+        let date_3 = day.toShortFormat().slice(7, 11);
+        var e = Number(dob_3);
+        var f = Number(date_3);
+
+        var dob = new Date(e, c - 1, a);
+        var date = new Date(f, d - 1, b);
+
+        if (date > dob) {
+            return true;
+        } else {
+            alert("Ngày sinh phải nhỏ hơn " + date.toShortFormat());
+            return false;
+        }
+    }
+</script>
 </body>
 </html>

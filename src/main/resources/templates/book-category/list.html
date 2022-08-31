@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://thymeleaf.org">
+      xmlns:th="http://thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -53,11 +53,11 @@
                                 <td th:text="${c.bookCategoryName}"></td>
                                 <td th:text="${c.note}"></td>
                                 <td>
-                                    <a th:href="@{'/book-category/edit/' + ${c.id}}" ><i class="fa fa-edit" style="margin-right: 20px"></i></a>
-                                    <a data-toggle="modal" data-target=".remove-category-modal" onclick="removeBookCategoryDialog(this);"
+                                    <a sec:authorize="hasAnyAuthority('ADMIN','EDITOR')" th:href="@{'/book-category/edit/' + ${c.id}}" ><i class="fa fa-edit" style="margin-right: 20px"></i></a>
+                                    <!--<a data-toggle="modal" data-target=".remove-category-modal" onclick="removeBookCategoryDialog(this);"
                                        th:data-category-id="${c.id}" th:data-category-name="${c.bookCategoryName}" style="cursor: pointer;">
                                         <i class="fa fa-remove"></i>
-                                    </a>
+                                    </a>-->
                                 </td>
                             </tr>
                             </tbody>
@@ -68,7 +68,7 @@
         </div>
         <!-- /page content -->
 
-        <div class="modal fade remove-category-modal" tabindex="-1"
+        <!--<div class="modal fade remove-category-modal" tabindex="-1"
              role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
@@ -91,7 +91,7 @@
 
                 </div>
             </div>
-        </div>
+        </div>-->
 
         <th:block th:replace="fragments/footer :: footer"></th:block>
 

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 
 import com.project.library.model.Producer;
+import org.springframework.data.repository.query.Param;
 
 public interface ProducerService {
 	
@@ -19,4 +20,8 @@ public interface ProducerService {
     Optional<Producer> findProducerById(Long id);
     
     List<Producer> getAllBySort();
+
+    Integer checkUniqueCode(@Param("producerCode")String codeInput);
+
+    Integer checkUniqueName(@Param("producerName")String nameInput);
 }

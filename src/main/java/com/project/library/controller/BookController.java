@@ -96,15 +96,14 @@ public class BookController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String save(@Valid Book book, final BindingResult bindingResult, final RedirectAttributes redirectAttributes,
 	@RequestParam("image") MultipartFile multipartFile ) throws IOException {
-		// note
-//		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-//		book.setImage(fileName);
-//		Book saveBook = bookService.saveBook(book);
-//		String uploadDir = "book-images/" + saveBook.getId();
-//		FileUploadUtil.saveFile(uploadDir,fileName,multipartFile);
+		if (bookService.checkUniqueISBN(book.getBookCode()) > 0){
+			redirectAttributes.addFlashAttribute("successMsgs", "Mã ISBN '" + book.getBookCode() + "' đã được đăng kí.");
+			return "redirect:/book/add";
+		}
 		if(!multipartFile.isEmpty()){
 			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 			book.setImage(fileName);
+			book.setStatus(1);
 			Book saveBook = bookService.saveBook(book);
 
 			String uploadDir = "book-photos/" +saveBook.getId();
@@ -122,6 +121,9 @@ public class BookController {
             return  "/book/form";
             
         }
+
+
+
         if(book.getId() == null){
             bookService.addNew(book);
             redirectAttributes.addFlashAttribute("successMsg", "'" + book.getBookName() + "' đã được thêm sách mới.");
