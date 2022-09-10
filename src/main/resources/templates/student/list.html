@@ -61,7 +61,7 @@
                                 <td th:text="${a.studentAddress}"></td>
                                 <td th:text="${a.studentGenre}"></td>
                                 <td>
-                                    <a sec:authorize="hasAnyAuthority('ADMIN','EDITOR')" th:href="@{'/student/edit/' + ${a.id}}" ><i class="fa fa-edit" style="margin-right: 20px"></i></a>
+                                    <a th:href="@{'/student/edit/' + ${a.id}}" ><i class="fa fa-edit" style="margin-right: 20px"></i></a>
                                     <!--<a data-toggle="modal" data-target=".remove-student-modal" onclick="removeStudentDialog(this);"
                                        th:data-student-id="${a.id}" th:data-student-name="${a.studentName}" style="cursor: pointer;">
                                         <i class="fa fa-remove"></i>

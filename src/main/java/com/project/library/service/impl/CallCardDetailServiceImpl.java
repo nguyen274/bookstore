@@ -46,4 +46,5 @@ public class CallCardDetailServiceImpl implements CallCardDetailService {
     public List<Object[]> totalBookPrice(Date startDate, Date endDate) {
         return callCardDetailRepository.totalBookPrice(startDate, endDate);
     }
+
 }

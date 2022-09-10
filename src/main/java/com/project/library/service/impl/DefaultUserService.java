@@ -1,6 +1,8 @@
 package com.project.library.service.impl;
 
+import com.project.library.model.Role;
 import com.project.library.model.User;
+import com.project.library.repository.RoleRepository;
 import com.project.library.repository.UserRepository;
 import com.project.library.service.UserService;
 import org.springframework.beans.BeanUtils;
@@ -54,4 +56,5 @@ public class DefaultUserService implements UserService {
     private void encodePassword( User userEntity, User user){
         userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
     }
+
 }

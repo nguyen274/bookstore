@@ -72,7 +72,7 @@ public class StaffController {
 
         if(staff.getId() == null){
             staffService.addNew(staff);
-            redirectAttributes.addFlashAttribute("successMsg", "'" + staff.getStaffName() + "' đã được thêm nhà xuất bản mới.");
+            redirectAttributes.addFlashAttribute("successMsg", "'" + staff.getStaffName() + "' đã được thêm user mới.");
             return "redirect:/staff/register/"+staff.getId();
         } else {
             Staff updateStaff = staffService.saveStaff(staff);

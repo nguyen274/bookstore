@@ -9,23 +9,30 @@ $('#addBook').on('click', function () {
     // Get book
     book = {}
     var bookCode = $('#bookCode').val();
-
+    var amount = $("#amount").val();
     $.ajax({
         async: false,
         url : `/rest/issue/getBook/${bookCode}`,
         type : "GET",
         success : res => {
             if (res) {
-                book["id"] = res.id
-                book["bookCode"] = res.bookCode
-                book["bookName"] = res.bookName
-                book["price"] = new Intl.NumberFormat('de-DE').format(res.price)
+                if(res.amount < amount){
+                    Swal.fire({
+                        icon: 'info',                        title: 'Thông báo',
+                        text: 'Số lượng hiện tại không đủ',
+                    })
+                }else {
+                    book["id"] = res.id
+                    book["bookCode"] = res.bookCode
+                    book["bookName"] = res.bookName
+                    book["price"] = new Intl.NumberFormat('de-DE').format(res.price)
+                }
             }
         }
     });
 
     // Set table
-    const amount = $("#amount").val()
+    //const amount = $("#amount").val()
 
     if (validateInput(amount)) {
         book['amount'] = amount

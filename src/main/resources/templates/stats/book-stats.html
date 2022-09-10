@@ -46,7 +46,7 @@
                     </div>
 
                     <div class="col-sm-7" >
-                        <button type="submit" style="float:right; width: 100px;" id="saveBtn" class="btn btn-success">Save</button>
+                        <button type="submit" style="float:right; width: 100px;" id="saveBtn" class="btn btn-success">Tìm kiếm</button>
                     </div>
                 </form>
                 <table id="datatable"
@@ -54,20 +54,16 @@
 
                     <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>STT</th>
                         <th>Tên Sách</th>
                         <th style="width: 100px;">Doanh Thu</th>
-
-
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="c : ${bookStats}">
-                        <td th:text="${c[0].id}"></td>
+                    <tr th:each="c, ite : ${bookStats}">
+                        <td th:text="${ite.index + 1}"></td>
                         <td class="cate" th:text="${c[0].bookName}" ></td>
                         <td class="total" th:text="${c[1]}" ></td>
-
-
                     </tr>
                     </tbody>
                 </table>
@@ -101,13 +97,35 @@
     function validate() {
         let endDate = document.getElementById("endDate").value;
         let startDate = document.getElementById("startDate").value;
-        if (endDate > startDate) {
-            return true;
-        } else {
+        if (startDate === '' || endDate === '') {
+            alert("Mời nhập ngày cần thống kê!");
+            return false;
+        }
+        if (startDate > endDate) {
             alert(" Ngày bắt đầu phải nhỏ hơn ngày kết thúc");
             return false;
         }
+        return true;
     }
+
+    function formatDateString(date, isShortShow) {
+        var theDate =  date.getDate();
+        if (theDate < 10) {
+            theDate = String("0") + String(theDate);
+        }
+        var month = parseInt(date.getMonth()) + 1;
+        if (month < 10) {
+            month = String("0") + String(month);
+        }
+
+        var result = date.getFullYear() + "-" + month + "-" + theDate;
+        if(isShortShow){
+            result = date.getFullYear() + "-" + month;
+        }
+        return result;
+    }
+
+    $('#endDate').val(formatDateString(new Date()));
 </script>
 </body>
 </html>

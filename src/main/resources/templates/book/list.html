@@ -71,7 +71,7 @@
                                 <td th:text="${#numbers.formatDecimal(b.depositPrice,0, 'COMMA', 0, 'POINT')}">VNĐ</td> -->
                                 <td th:text="${b.amount}"></td>
                                 <td>
-                                    <a sec:authorize="hasAnyAuthority('ADMIN','EDITOR')" th:href="@{'/book/edit/' + ${b.id}}" ><i class="fa fa-edit" style="margin-right: 20px"></i></a>
+                                    <a th:href="@{'/book/edit/' + ${b.id}}" ><i class="fa fa-edit" style="margin-right: 20px"></i></a>
                                     <!--<a data-toggle="modal" data-target=".remove-book-modal" onclick="removeBookDialog(this);"
                                        th:data-book-id="${b.id}" th:data-book-name="${b.bookName}" style="cursor: pointer;">
                                         <i class="fa fa-remove"></i>

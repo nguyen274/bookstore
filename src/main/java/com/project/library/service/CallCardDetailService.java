@@ -18,4 +18,5 @@ public interface CallCardDetailService {
     public CallCardDetail addNew(CallCardDetail callCardDetail);
 
     List<Object[]> totalBookPrice(Date startDate, Date endDate);
+
 }

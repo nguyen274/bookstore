@@ -43,7 +43,7 @@
                                 <th style="width: 50px;">Mã Nhân Viên</th>
                                 <th style="width: 50px;">Tên Nhân Viên</th>
                                 <th style="width: 100px;">Giới Tính</th>
-                                <th style="width: 100px;">Trạng Thái</th>
+<!--                                <th style="width: 100px;">Trạng Thái</th>-->
                                 <th style="width: 100px;">Số Điện Thoại</th>
                                 <th style="width: 50px;">Tuổi</th>
                                 <th style="width: 50px;">Quyền</th>
@@ -56,13 +56,13 @@
                                 <td th:text="${u.staff.staffCode}"></td>
                                 <td th:text="${u.staff.staffName}"></td>
                                 <td th:text="${u.staff.gender}"></td>
-                                <td th:text="${u.enabled}"></td>
+<!--                                <td th:text="${u.enabled}"></td>-->
                                 <td th:text="${u.staff.phoneNumber}"></td>
                                 <td th:text="${#dates.year(#dates.createToday()) - #dates.year(u.staff.dateOfBirth)}"></td>
                                 <td th:text="${u.roles}"></td>
                                 <td>
                                     <a th:href="@{'/staff/edit/' + ${u.staff.id}}" ><i class="fa fa-edit" style="margin-right: 20px"></i></a>
-                                    <a th:href="@{'/staff/authentication/edit/' + ${u.id}}" ><i class="fa fa-user-plus" style="margin-right: 20px"></i></a>
+<!--                                    <a th:href="@{'/staff/authentication/edit/' + ${u.id}}" ><i class="fa fa-user-plus" style="margin-right: 20px"></i></a>-->
                                     <!--<a data-toggle="modal" data-target=".remove-producer-modal" onclick="removeProducerDialog(this);"
                                        th:data-producer-id="${u.id}" th:data-producer-name="${u.username}" style="cursor: pointer;">
                                         <i class="fa fa-remove"></i>

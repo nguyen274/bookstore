@@ -93,7 +93,7 @@ public class CustomerController {
         if(customer.getId() == null){
             customer.setStatus(Constants.CUSTOMER_NOT_STATUS);
             customerService.addNew(customer);
-            redirectAttributes.addFlashAttribute("successMsg", "'" + customer.getCustomerName() + "' đã được thêm sv mới.");
+            redirectAttributes.addFlashAttribute("successMsg", "'" + customer.getCustomerName() + "' đã được thêm KH mới.");
             return "redirect:/customer/add";
         } else {
             customer.setStatus(Constants.CUSTOMER_NOT_STATUS);

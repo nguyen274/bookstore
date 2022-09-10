@@ -55,7 +55,7 @@
                                 <td th:text="${a.website}"></td>
                                 <td th:text="${a.note}"></td>
                                 <td>
-                                    <a sec:authorize="hasAnyAuthority('ADMIN','EDITOR')" th:href="@{'/author/edit/' + ${a.id}}" ><i class="fa fa-edit" style="margin-right: 20px"></i></a>
+                                    <a th:href="@{'/author/edit/' + ${a.id}}" ><i class="fa fa-edit" style="margin-right: 20px"></i></a>
                                     <!--<a data-toggle="modal" data-target=".remove-author-modal" onclick="removeAuthorDialog(this);"
                                        th:data-author-id="${a.id}" th:data-author-name="${a.authorName}" style="cursor: pointer;">
                                         <i class="fa fa-remove"></i>

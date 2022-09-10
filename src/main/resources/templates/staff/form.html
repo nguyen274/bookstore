@@ -163,12 +163,12 @@
         let inputVal = document.getElementById("dateOfBirth").value;
         // get date
         let dob_0 = inputVal.slice(0, 2);
-        let date_0 = day.toShortFormat().slice(0, 2);
+        let date_0 = day.toShortFormat().slice(0, 1);
         var a = Number(dob_0);
         var b = Number(date_0);
         // get month
         let dob2 = inputVal.slice(3, 6);
-        let date2 = day.toShortFormat().slice(3, 6);
+        let date2 = day.toShortFormat().slice(2, 5);
         let monthName = {
             "Jan": 1, "Feb": 2, "Mar": 3, "Apr": 4,
             "May": 5, "Jun": 6, "Jul": 7, "Aug": 8,
@@ -180,7 +180,7 @@
         var d = Number(date_2);
         // get year
         let dob_3 = inputVal.slice(7, 11);
-        let date_3 = day.toShortFormat().slice(7, 11);
+        let date_3 = day.toShortFormat().slice(6, 10);
         var e = Number(dob_3);
         var f = Number(date_3);
 

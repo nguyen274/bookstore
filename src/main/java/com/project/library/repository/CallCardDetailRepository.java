@@ -17,4 +17,5 @@ public interface CallCardDetailRepository extends JpaRepository<CallCardDetail, 
     @Query("select c.book, (count(c.book) * c.book.borrowPrice) from CallCardDetail as c where c.returnDate between :startDate and :endDate group by c.book")
     public List<Object[]> totalBookPrice(@Param("startDate")Date startDate, @Param("endDate")Date endDate);
 
+
 }

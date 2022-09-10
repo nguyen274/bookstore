@@ -53,7 +53,7 @@
                                 <td th:text="${c.bookCategoryName}"></td>
                                 <td th:text="${c.note}"></td>
                                 <td>
-                                    <a sec:authorize="hasAnyAuthority('ADMIN','EDITOR')" th:href="@{'/book-category/edit/' + ${c.id}}" ><i class="fa fa-edit" style="margin-right: 20px"></i></a>
+                                    <a th:href="@{'/book-category/edit/' + ${c.id}}" ><i class="fa fa-edit" style="margin-right: 20px"></i></a>
                                     <!--<a data-toggle="modal" data-target=".remove-category-modal" onclick="removeBookCategoryDialog(this);"
                                        th:data-category-id="${c.id}" th:data-category-name="${c.bookCategoryName}" style="cursor: pointer;">
                                         <i class="fa fa-remove"></i>

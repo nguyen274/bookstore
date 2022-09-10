@@ -2,7 +2,7 @@ function cateChart(id, cateLabels=[], cateInfor=[]){
     const data = {
         labels: cateLabels,
         datasets: [{
-            label: 'Thông kê số lượng sản theo thể loại Sách',
+            label: 'Thông kê số lượng theo thể loại Sách',
             data: cateInfor,
             backgroundColor: [
                 'rgb(255, 99, 132)',

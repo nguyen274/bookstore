@@ -59,7 +59,7 @@
                 <td th:text="${#dates.year(#dates.createToday()) - #dates.year(m.dateOfBirth)}"></td>
                 <td th:text="${#dates.format(m.joiningDate, 'dd-MMM-yyyy')}"></td>
                 <td>
-                  <a sec:authorize="hasAnyAuthority('ADMIN','EDITOR')" th:href="@{'/customer/edit/' + ${m.id}}"><i class="fa fa-edit" style="margin-right: 20px"></i></a>
+                  <a  th:href="@{'/customer/edit/' + ${m.id}}"><i class="fa fa-edit" style="margin-right: 20px"></i></a>
                   <!--<a data-toggle="modal" data-target=".remove-member-modal" onclick="removeMemberDialog(this);"
                      th:data-member-id="${m.id}" th:data-member-name="${m.customerName}"
                      style="cursor: pointer;">

@@ -57,7 +57,7 @@
                                 <!--<td th:text="${p.producerAddress}"></td>
                                 <td th:text="${p.representative}"></td>-->
                                 <td>
-                                    <a sec:authorize="hasAnyAuthority('ADMIN','EDITOR')" th:href="@{'/producer/edit/' + ${p.id}}" ><i class="fa fa-edit" style="margin-right: 20px"></i></a>
+                                    <a th:href="@{'/producer/edit/' + ${p.id}}" ><i class="fa fa-edit" style="margin-right: 20px"></i></a>
                                     <!--<a data-toggle="modal" data-target=".remove-producer-modal" onclick="removeProducerDialog(this);"
                                        th:data-producer-id="${p.id}" th:data-producer-name="${p.producerName}" style="cursor: pointer;">
                                         <i class="fa fa-remove"></i>

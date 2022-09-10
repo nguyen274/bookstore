@@ -73,4 +73,22 @@ public class LoginController {
         return "/stats/least-book";
     }
 
+    @RequestMapping(value = "/top-book", method = RequestMethod.GET)
+    public String topBook(Model model, @RequestParam Map<String, String> payload) throws ParseException {
+        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+        LocalDate nowTime = LocalDate.now();
+
+        Date startDate = null;
+        String start = payload.get("startDate");
+        if (start != null)
+            startDate = f.parse(start);
+
+        Date endDate = null;
+        String end = payload.get("endDate");
+        if (end != null)
+            endDate = f.parse(end);
+
+        model.addAttribute("bookStats", this.callCardDetailService.totalBookPrice(startDate, endDate));
+        return "/stats/top-book";
+    }
 }

@@ -2,7 +2,7 @@ function cateChart(id, cateLabels=[], cateInfor=[]) {
     const data = {
         labels: cateLabels,
         datasets: [{
-            label: 'Lợi Nhuận',
+            label: 'Doanh Thu',
             data: cateInfor,
             fill: false,
             backgroundColor: [
